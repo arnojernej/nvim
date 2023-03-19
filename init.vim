@@ -24,8 +24,9 @@ call plug#end()
 
 lua require('gitsigns').setup()
 lua require('lualine').setup()
-lua require("nvim-autopairs").setup {}
+lua require('nvim-autopairs').setup()
 lua require('Comment').setup()
+lua require('nvim-rooter').setup()
 
 lua <<EOF
 local cmp = require'cmp'
@@ -103,4 +104,8 @@ set number
 set tabstop=3
 set signcolumn=yes
 
-" nnoremap <leader>ev :edit C:\Users\jernejar\AppData\Local\nvim\init.vim<cr>
+if has('win32')
+  nnoremap <leader>ev :edit C:\Users\jernejar\AppData\Local\nvim\init.vim<cr>
+else
+  nnoremap <leader>ev :edit ~/.config/nvim/init.vim<cr>
+endif
