@@ -1,24 +1,24 @@
 let mapleader = ","
 call plug#begin()
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
-Plug 'shaunsingh/nord.nvim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'numToStr/Comment.nvim'
-Plug 'xiyaowong/nvim-transparent'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'nvim-lualine/lualine.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'numToStr/Comment.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'sakshamgupta05/vim-todo-highlight'
+Plug 'shaunsingh/nord.nvim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
 Plug 'windwp/nvim-autopairs'
-Plug 'notjedi/nvim-rooter.lua'
+Plug 'xiyaowong/nvim-transparent'
 
 call plug#end()
 
@@ -26,7 +26,6 @@ lua require('gitsigns').setup()
 lua require('lualine').setup()
 lua require('nvim-autopairs').setup()
 lua require('Comment').setup()
-lua require('nvim-rooter').setup()
 
 lua <<EOF
 local cmp = require'cmp'
@@ -62,7 +61,8 @@ xnoremap <silent><leader>/ <Plug>(comment_toggle_linewise_visual)
 " Telescope
 nnoremap <silent> <leader>r <cmd>Telescope oldfiles<cr>
 nnoremap <silent> <leader>g <cmd>Telescope git_files<cr>
-nnoremap <silent> <leader>t <cmd>Telescope find_files<cr>
+nnoremap <silent> <leader>p <cmd>Telescope find_files<cr>
+nnoremap <silent> <leader>x <cmd>Telescope live_grep<cr>
 
 nnoremap <silent> <leader>b :b#<cr>
 
@@ -71,7 +71,10 @@ nmap j gj
 
 nnoremap <silent>K :bd<cr>
 map . .`[
+xnoremap . :'<,'>normal .<cr>
+
 nnoremap Q @q
+xnoremap Q :'<,'>normal @q<cr>
 
 nnoremap <silent> * eb:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nnoremap <esc><esc> :nohlsearch<cr>
@@ -80,6 +83,8 @@ nmap <silent> gn :cnext<cr>
 nmap <silent> gN :cprev<cr>
 
 nnoremap <silent> <cr> :w<cr>
+
+map <leader>ml V:s/; /;\r/g<cr>^MggVG:sort<cr>
 
 " Tap indent in visual mode
 autocmd VimEnter * xmap <tab> >gv
