@@ -1,3 +1,5 @@
+language en_US.utf8
+
 let mapleader = ","
 call plug#begin()
 
