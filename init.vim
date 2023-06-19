@@ -48,13 +48,17 @@ require("telescope").setup({
       hide_on_startup = true
     },
     file_ignore_patterns = {
-      "venv"
+      "venv",
+      "bin",
+      "obj",
+      "node_modules",
     }
   },
 })
 EOF
 
 let g:transparent_enabled = v:true
+let g:netrw_keepdir = 0
 
 " Comment
 nnoremap <silent><leader>/ <Plug>(comment_toggle_linewise_current)
@@ -67,6 +71,8 @@ nnoremap <silent> <leader>p <cmd>Telescope find_files<cr>
 nnoremap <silent> <leader>x <cmd>Telescope live_grep<cr>
 
 nnoremap <silent> <leader>b :b#<cr>
+nnoremap <silent> <leader>e :Explore<cr>
+nnoremap <silent> <leader>er :Explore r:\<cr>
 
 nmap k gk
 nmap j gj
@@ -116,3 +122,4 @@ if has('win32')
 else
   nnoremap <leader>ev :edit ~/.config/nvim/init.vim<cr>
 endif
+
