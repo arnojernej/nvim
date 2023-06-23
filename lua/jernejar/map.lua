@@ -28,8 +28,8 @@ vim.keymap.set('n', 'Q', '@q')
 vim.keymap.set('x', 'Q', ":'<,'>normal @q<cr>")
 
 -- quickfix jumping
-vim.keymap.set('n', 'gn', ':cnext<cr>')
-vim.keymap.set('n', 'gN', ':cprev<cr>')
+vim.keymap.set('n', 'gn', ':cnext<cr>zz')
+vim.keymap.set('n', 'gN', ':cprev<cr>zz')
 
 -- " Tap indent in visual mode
 vim.cmd([[
