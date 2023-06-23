@@ -18,9 +18,6 @@ vim.keymap.set('n', '<enter>', ':w<cr>')
 vim.keymap.set('n', '<esc><esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', '*', '*N')
 
--- nnoremap <silent> <leader>e :Explore<cr>
--- nnoremap <silent> <leader>er :Explore r:\<cr>
-
 vim.keymap.set('n', '<leader>b', ':b#<cr>')
 vim.keymap.set('n', 'K', ':bd<cr>')
 
@@ -29,3 +26,15 @@ vim.keymap.set('x', '.', ":'<,'>normal .<cr>")
 
 vim.keymap.set('n', 'Q', '@q')
 vim.keymap.set('x', 'Q', ":'<,'>normal @q<cr>")
+
+-- quickfix jumping
+vim.keymap.set('n', 'gn', ':cnext<cr>')
+vim.keymap.set('n', 'gN', ':cprev<cr>')
+
+-- " Tap indent in visual mode
+vim.cmd([[
+   autocmd VimEnter * xmap <tab> >gv
+   autocmd VimEnter * xmap <s-tab> <gv
+]]
+)
+
