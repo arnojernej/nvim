@@ -38,3 +38,8 @@ vim.cmd([[
 ]]
 )
 
+vim.keymap.set('n', 'n', 'nzz')
+
+-- CUSTOM ONES
+
+vim.keymap.set('n', '<leader>ml', 'V:s/; /;\r/g<cr>^MggVG:sort<cr>')

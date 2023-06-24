@@ -1,8 +1,18 @@
+vim.cmd([[
+
+augroup nord-theme-overrides
+  autocmd!
+  " Use 'nord7' as foreground color for Vim comment titles.
+  autocmd ColorScheme nord highlight Comment gui=italic
+augroup END
+
+]])
+
 require("jernejar")
 
-local builtin = require('telescope.builtin')
+-- [[ PLAYGROUND ]]
 
-vim.keymap.set('n', '<leader>ml', 'V:s/; /;\r/g<cr>^MggVG:sort<cr>')
+local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>ps', function()
 	local search = vim.fn.input("Grep: ")
