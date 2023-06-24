@@ -18,8 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
    -- NOTE: First, some plugins that don't require any configuration
-   --
-   { 'ethanholz/nvim-lastplace', opts = {} },
 
    -- Git related plugins
    'tpope/vim-fugitive',
@@ -33,11 +31,14 @@ require('lazy').setup({
    'tpope/vim-repeat',
    'tpope/vim-surround',
 
+   { 'ethanholz/nvim-lastplace', opts = {} },
+
    {
       'windwp/nvim-autopairs',
       event = "InsertEnter",
       opts = {} -- this is equalent to setup({}) function
    },
+
    { 'windwp/nvim-ts-autotag', opts = {} },
 
    {
@@ -47,6 +48,7 @@ require('lazy').setup({
          -- your configuration comes here
          -- or leave it empty to use the default settings
          -- refer to the configuration section below
+         signs = false
       }
    },
 
@@ -95,6 +97,7 @@ require('lazy').setup({
 
    -- Useful plugin to show you pending keybinds.
    -- { 'folke/which-key.nvim', opts = {} },
+
    {
       -- Adds git releated signs to the gutter, as well as utilities for managing changes
       'lewis6991/gitsigns.nvim',
@@ -157,6 +160,16 @@ require('lazy').setup({
    },
 
    {
+      "folke/trouble.nvim",
+      -- dependencies = { "nvim-tree/nvim-web-devicons" },
+      opts = {
+         -- your configuration comes here
+         -- or leave it empty to use the default settings
+         -- refer to the configuration section below
+      },
+   },
+
+   {
       -- Highlight, edit, and navigate code
       'nvim-treesitter/nvim-treesitter',
       dependencies = {
@@ -175,14 +188,14 @@ require('lazy').setup({
 
    -- "gc" to comment visual regions/lines
    { 'numToStr/Comment.nvim', opts = {
-toggler = {
-                line = '<leader>/',
-                -- block = '<leader>bc',
-            },
-            opleader = {
-                line = '<leader>/',
-                -- block = '<leader>b',
-            },
+      toggler = {
+         line = '<leader>/',
+         -- block = '<leader>bc',
+      },
+      opleader = {
+         line = '<leader>/',
+         -- block = '<leader>b',
+      },
    } },
 
    -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
