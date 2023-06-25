@@ -51,10 +51,12 @@ end
 local servers = {
    -- clangd = {},
    -- gopls = {},
-   -- pyright = {},
    -- rust_analyzer = {},
-   -- tsserver = {},
-
+   jsonls = {},
+   pyright = {},
+   tsserver = {},
+   omnisharp = {},
+   java_language_server = {},
    lua_ls = {
       Lua = {
          workspace = { checkThirdParty = false },
