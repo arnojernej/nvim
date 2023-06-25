@@ -23,8 +23,6 @@ require('lazy').setup({
    'tpope/vim-fugitive',
    'tpope/vim-rhubarb',
 
-   'mbbill/undotree',
-
    -- Detect tabstop and shiftwidth automatically
    'tpope/vim-sleuth',
 
@@ -203,5 +201,5 @@ require('lazy').setup({
    --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
    --
 
-   -- { import = 'plugins' },
+   { import = 'plugins' },
 }, {})
