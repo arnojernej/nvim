@@ -56,7 +56,7 @@ local servers = {
    pyright = {},
    tsserver = {},
    omnisharp = {},
-   java_language_server = {},
+   jdtls = {},
    lua_ls = {
       Lua = {
          workspace = { checkThirdParty = false },
