@@ -4,6 +4,7 @@ vim.g.maplocalleader = ','
 vim.cmd([[
 
 nmap <enter> :w<cr>
+nmap <esc> :nohlsearch<cr><Cmd>call VSCodeNotify('workbench.action.debug.stop')<CR><Cmd>call VSCodeNotify('removeSecondaryCursors')<CR>
 
 nnoremap <leader>b <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousEditor')<CR><Cmd>call VSCodeNotify('workbench.action.acceptSelectedQuickOpenItem')<CR>
 nnoremap K <Cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
@@ -20,11 +21,12 @@ xmap <s-tab> <Cmd>call VSCodeNotifyVisual('editor.action.outdentLines', 1)<CR>
 nmap <leader>/ <Cmd>call VSCodeNotify('editor.action.commentLine')<CR>
 xmap <leader>/ <Cmd>call VSCodeNotifyVisual('editor.action.commentLine', 1)<CR>
 
-nnoremap ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>')})<CR>
+nnoremap ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR>
+
+nmap <leader>/ <Cmd>call VSCodeNotify('editor.action.commentLine')<CR>
 
 ]])
 
-vim.keymap.set('n', '<esc><esc>', ':nohlsearch<cr>')
 vim.keymap.set('n', '*', '*N')
 
 vim.keymap.set('n', '.', '.`[')

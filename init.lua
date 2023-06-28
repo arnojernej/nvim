@@ -14,7 +14,7 @@ else
 
 ]])
 
-  require("jernejar")
+  require("nvim")
 
   -- [[ PLAYGROUND ]]
 

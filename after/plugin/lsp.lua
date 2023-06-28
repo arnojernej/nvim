@@ -57,7 +57,7 @@ if not vim.g.vscode then
       pyright = {},
       tsserver = {},
       omnisharp = {},
-      jdtls = {},
+      -- jdtls = {},
       lua_ls = {
          Lua = {
             workspace = { checkThirdParty = false },

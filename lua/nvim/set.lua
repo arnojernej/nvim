@@ -8,6 +8,8 @@ vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 vim.o.breakindent = true
 
+vim.o.wrap = false
+
 -- Save undo history
 vim.o.undofile = true
 
@@ -30,6 +32,6 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 vim.o.cursorline = true
 
-vim.o.scrolloff = 8
+vim.o.scrolloff = 2
 
 vim.cmd("language en_US")
