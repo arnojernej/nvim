@@ -24,6 +24,9 @@ nmap <silent> <leader>/ <Cmd>call VSCodeNotify('editor.action.commentLine')<CR>
 
 nmap <silent> <space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 
+nnoremap j <Cmd>call VSCodeCall('cursorDown')<CR>
+nnoremap k <Cmd>call VSCodeCall('cursorUp')<CR>
+
 ]])
 
 vim.keymap.set('n', '*', '*N', { silent = true })
