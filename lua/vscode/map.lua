@@ -22,6 +22,8 @@ nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'qu
 
 nmap <silent> <leader>/ <Cmd>call VSCodeNotify('editor.action.commentLine')<CR>
 
+nmap <silent> <space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
+
 ]])
 
 vim.keymap.set('n', '*', '*N', { silent = true })

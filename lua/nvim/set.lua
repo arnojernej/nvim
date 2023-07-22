@@ -35,3 +35,7 @@ vim.o.cursorline = true
 vim.o.scrolloff = 2
 
 vim.cmd("language en_US")
+
+vim.cmd[[
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+]]

@@ -23,7 +23,7 @@ require('lazy').setup({
    'tpope/vim-fugitive',
    'tpope/vim-rhubarb',
 
-   'github/copilot.vim',
+   -- 'github/copilot.vim',
 
    -- Detect tabstop and shiftwidth automatically
    'tpope/vim-sleuth',
@@ -31,7 +31,7 @@ require('lazy').setup({
    'tpope/vim-repeat',
    'tpope/vim-surround',
 
-   { 'ethanholz/nvim-lastplace', opts = {} },
+   -- { 'ethanholz/nvim-lastplace', opts = {} },
 
    {
       'windwp/nvim-autopairs',
@@ -203,5 +203,5 @@ require('lazy').setup({
    --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
    --
 
-   { import = 'plugin' },
+   -- { import = 'plugin' },
 }, {})
