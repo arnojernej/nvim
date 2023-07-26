@@ -33,6 +33,7 @@ vim.o.termguicolors = true
 vim.o.cursorline = true
 
 vim.o.scrolloff = 2
+vim.o.sidescrolloff = 3
 
 vim.cmd("language en_US")
 

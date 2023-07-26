@@ -1,3 +1,11 @@
+if vim.fn.has('win32') == 1 then
+
+  vim.cmd([[
+    set shadafile=C:/2_PROGS/shada
+  ]])
+
+end
+
 if vim.g.vscode then
 
   require("vscode")

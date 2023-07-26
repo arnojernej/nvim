@@ -23,7 +23,7 @@ require('lazy').setup({
    'tpope/vim-fugitive',
    'tpope/vim-rhubarb',
 
-   -- 'github/copilot.vim',
+   'github/copilot.vim',
 
    -- Detect tabstop and shiftwidth automatically
    'tpope/vim-sleuth',
