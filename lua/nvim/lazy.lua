@@ -168,6 +168,11 @@ require('lazy').setup({
          'nvim-treesitter/nvim-treesitter-textobjects',
       },
       build = ':TSUpdate',
+      opts = {
+         autotag = {
+            enable = true,
+         }
+      } -- this is equalent to setup({}) function
    },
 
    {
