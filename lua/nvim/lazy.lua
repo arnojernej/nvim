@@ -175,6 +175,15 @@ require('lazy').setup({
       } -- this is equalent to setup({}) function
    },
 
+   -- {
+   --    'kaiuri/nvim-juliana',
+   --    lazy = false,
+   --    opts = { --[=[ configuration --]=] },
+   --    config = true,
+   -- },
+
+   -- { 'rose-pine/neovim', name = 'rose-pine' },
+
    {
       'nordtheme/vim',
       priority = 1000,

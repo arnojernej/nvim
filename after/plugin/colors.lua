@@ -1,4 +1,5 @@
 if not vim.g.vscode then
+
 	function ColorMyPencils(color)
 		color = color or "nord"
 		vim.cmd.colorscheme(color)

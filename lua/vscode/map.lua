@@ -9,18 +9,13 @@ nnoremap <silent> K <Cmd>call VSCodeNotify('workbench.action.closeActiveEditor')
 nnoremap <silent> <leader>r <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousEditor')<CR>
 nnoremap <silent> <leader>p <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
 
-nmap <silent> <tab> <Cmd>call VSCodeNotify('editor.action.indentLines')<CR>
-nmap <silent> <s-tab> <Cmd>call VSCodeNotify('editor.action.outdentLines')<CR>
+xmap <silent> <tab> <Cmd>call VSCodeCall('editor.action.indentLines')<CR>
+xmap <silent> <s-tab> <Cmd>call VSCodeCall('editor.action.outdentLines')<CR>
 
-xmap <silent> <tab> <Cmd>call VSCodeNotifyVisual('editor.action.indentLines', 1)<CR>
-xmap <silent> <s-tab> <Cmd>call VSCodeNotifyVisual('editor.action.outdentLines', 1)<CR>
-
-nmap <silent> <leader>/ <Cmd>call VSCodeNotify('editor.action.commentLine')<CR>
-xmap <silent> <leader>/ <Cmd>call VSCodeNotifyVisual('editor.action.commentLine', 1)<CR>
+nmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
+xmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 
 nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR>
-
-nmap <silent> <leader>/ <Cmd>call VSCodeNotify('editor.action.commentLine')<CR>
 
 nmap <silent> <space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 
