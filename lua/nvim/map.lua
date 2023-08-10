@@ -45,3 +45,5 @@ vim.cmd([[
 vim.keymap.set('n', '<leader>ml', 'V:s/; /;\r/g<cr>^MggVG:sort<cr>', { silent = true })
 
 vim.keymap.set('n', '<leader>e', ':Explore<cr>', { silent = true })
+
+vim.keymap.set('n', '<space>', 'za', { silent = true })

@@ -42,6 +42,11 @@ require('lazy').setup({
    { 'windwp/nvim-ts-autotag', opts = {} },
 
    {
+      'kevinhwang91/nvim-ufo',
+      dependencies = { 'kevinhwang91/promise-async' }
+   },
+
+   {
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
       opts = {
