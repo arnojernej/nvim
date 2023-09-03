@@ -6,7 +6,7 @@ nmap <silent> <esc> :nohlsearch<cr><Cmd>call VSCodeNotify('workbench.action.debu
 nnoremap <silent> <leader>b <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousEditor')<CR><Cmd>call VSCodeNotify('workbench.action.acceptSelectedQuickOpenItem')<CR>
 nnoremap <silent> K <Cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
 
-nnoremap <silent> <leader>r <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousEditor')<CR>
+nnoremap <silent> <leader>r <Cmd>call VSCodeNotify('workbench.action.openRecent')<CR>
 nnoremap <silent> <leader>p <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
 
 xmap <silent> <tab> <Cmd>call VSCodeCall('editor.action.indentLines')<CR>
@@ -15,12 +15,15 @@ xmap <silent> <s-tab> <Cmd>call VSCodeCall('editor.action.outdentLines')<CR>
 nmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 xmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 
-nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR>
+nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR><Cmd>call VSCodeNotify('workbench.action.openEditorAtIndex1')0<CR>
 
 nmap <silent> <space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
+nmap <silent> <space><space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 
-nnoremap j <Cmd>call VSCodeCall('cursorDown')<CR>
-nnoremap k <Cmd>call VSCodeCall('cursorUp')<CR>
+nmap <silent> R <Cmd>call VSCodeCall('editor.action.focusNextSearchResult')<CR><Cmd>call VSCodeCall('vscode-neovim.escape')<CR>
+
+" nnoremap j :call VSCodeNotify('cursorDown')<cr>
+" nnoremap k :call VSCodeNotify('cursorUp')<cr>
 
 ]])
 

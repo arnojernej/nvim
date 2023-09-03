@@ -16,7 +16,7 @@ if not vim.g.vscode then
          vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
       end
 
-      nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+      nmap('R', vim.lsp.buf.rename, '[R]e[n]ame')
       nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
       nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')

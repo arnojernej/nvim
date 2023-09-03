@@ -38,6 +38,8 @@ vim.cmd([[
 ]]
 )
 
+vim.keymap.set('n', 'gd', 'gf', { silent = true })
+
 -- vim.keymap.set('n', 'n', 'nzz')
 
 -- CUSTOM ONES
