@@ -1,26 +1,30 @@
-if vim.fn.has('win32') == 1 then
+if vim.g.vscode then
 
   vim.cmd([[
-    set shadafile=C:/2_PROGS/shada
+    set shadafile=NONE
   ]])
 
 end
 
 if vim.g.vscode then
-
   require("vscode")
-
 else
+
+  if vim.fn.has('win32') == 1 then
+    vim.cmd([[
+      set shadafile=C:/Temp/shada
+    ]])
+  end
 
   vim.cmd([[
 
-  augroup nord-theme-overrides
-  autocmd!
-  " Use 'nord7' as foreground color for Vim comment titles.
-  autocmd ColorScheme nord highlight Comment gui=italic
-  augroup END
+    augroup nord-theme-overrides
+    autocmd!
+    " Use 'nord7' as foreground color for Vim comment titles.
+    autocmd ColorScheme nord highlight Comment gui=italic
+    augroup END
 
-]])
+  ]])
 
   require("nvim")
 
