@@ -17,6 +17,9 @@ xmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 
 nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR><Cmd>call VSCodeNotify('workbench.action.openEditorAtIndex1')0<CR>
 
+nmap <silent> gn <Cmd>call VSCodeCall('search.action.focusNextSearchResult')<CR>
+nmap <silent> gN <Cmd>call VSCodeCall('search.action.focusPreviousSearchResult')<CR>
+
 nmap <silent> <space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 nmap <silent> <space><space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 
