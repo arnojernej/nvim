@@ -1,7 +1,7 @@
 if vim.g.vscode then
 
 	function ColorMyPencils(color)
-		vim.api.nvim_set_hl(0, "CurSearch", { fg = "#3b4252", bg = "#88c0d0"}) -- blue
+		vim.api.nvim_set_hl(0, "CurSearch", { fg = "#3b4252", bg = "#88c0d0"})
 	end
 
 else
@@ -13,9 +13,9 @@ else
 		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
-		vim.api.nvim_set_hl(0, "Search", { fg = "#d8dee9", bg = "#3b4252"}) -- blue
-		vim.api.nvim_set_hl(0, "IncSearch", { fg = "#d8dee9", bg = "#3b4252"}) -- blue
-		vim.api.nvim_set_hl(0, "CurSearch", { fg = "#3b4252", bg = "#88c0d0"}) -- blue
+		vim.api.nvim_set_hl(0, "Search", { bg = "#4c566a"})
+		vim.api.nvim_set_hl(0, "IncSearch", { bg = "#4c566a"})
+		vim.api.nvim_set_hl(0, "CurSearch", { fg = "#3b4252", bg = "#88c0d0"})
 
 		vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 
