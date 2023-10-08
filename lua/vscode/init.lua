@@ -27,3 +27,14 @@ autocmd({"BufWritePre"}, {
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
+
+vim.cmd([[
+
+function! FindInFiles(args)
+  call VSCodeNotify('workbench.action.findInFiles', { 'query': a:args })
+  call VSCodeNotify('search.action.focusSearchList')
+endfunction
+
+command! -nargs=* RG call FindInFiles(<q-args>)
+
+]])
