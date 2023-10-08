@@ -16,15 +16,14 @@ xmap <silent> <s-tab> <Cmd>call VSCodeCall('editor.action.outdentLines')<CR>
 nmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 xmap <silent> <leader>/ <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 
-nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR><Cmd>call VSCodeNotify('workbench.action.openEditorAtIndex1')0<CR>
+nnoremap <silent> ? <Cmd>call VSCodeNotify('workbench.action.findInFiles', { 'query': expand('<cword>') })<CR><Cmd>call VSCodeNotify('search.action.focusSearchList')<CR>
 
-nmap <silent> gn <Cmd>call VSCodeCall('search.action.focusNextSearchResult')<CR><cmd>call VSCodeNotify('cancelSelection')<CR>
-nmap <silent> gN <Cmd>call VSCodeCall('search.action.focusPreviousSearchResult')<CR>
+nmap gn <cmd>call VSCodeCall('search.action.focusSearchList')<cr>
 
 nmap <silent> <space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 nmap <silent> <space><space> <Cmd>call VSCodeNotify('editor.toggleFold')<CR>
 
-" nmap <silent> R <Cmd>call VSCodeCall('editor.action.focusNextSearchResult')<CR><Cmd>call VSCodeCall('vscode-neolua vim.escape')<CR>
+nmap <silent> R <Cmd>call VSCodeCall('editor.action.rename')<CR>
 
 " nnoremap j :call VSCodeNotify('cursorDown')<cr>
 " nnoremap k :call VSCodeNotify('cursorUp')<cr>
