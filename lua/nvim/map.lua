@@ -15,6 +15,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.keymap.set('n', '<enter>', ':w<cr>', { silent = true })
+vim.keymap.set('x', '<enter>', '<esc>:w<cr>', { silent = true })
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { silent = true })
 vim.keymap.set('n', '*', '*N', { silent = true })
 
