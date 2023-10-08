@@ -3,7 +3,7 @@ vim.cmd([[
 nmap <silent> <enter> :w<cr>
 xmap <silent> <enter> <esc>:w<cr>
 nmap <silent> <esc> :nohlsearch<cr><Cmd>call VSCodeNotify('workbench.action.debug.stop')<CR><Cmd>call VSCodeNotify('removeSecondaryCursors')<CR>
-nmap <silent> <esc><esc> <Cmd>call VSCodeNotify('workbench.view.explorer')<CR><Cmd>call VSCodeNotify('workbench.action.openEditorAtIndex1')<CR>
+nmap <silent> <esc><esc> <Cmd>call VSCodeNotify('workbench.view.explorer')<CR><Cmd>call VSCodeNotify('workbench.action.focusActiveEditorGroup')<CR>
 
 nnoremap <silent> <leader>b <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousEditor')<CR><Cmd>call VSCodeNotify('workbench.action.acceptSelectedQuickOpenItem')<CR>
 nnoremap <silent> K <Cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
@@ -29,8 +29,6 @@ nmap <silent> R <Cmd>call VSCodeCall('editor.action.rename')<CR>
 
 " nnoremap j :call VSCodeNotify('cursorDown')<cr>
 " nnoremap k :call VSCodeNotify('cursorUp')<cr>
-
-" command! -nargs=1 search call VSCodeNotify('workbench.action.findInFiles', {'query': '<args>'})<CR>
 
 ]])
 
