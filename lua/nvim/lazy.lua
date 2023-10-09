@@ -21,7 +21,7 @@ require('lazy').setup({
 
    -- Git related plugins
    'tpope/vim-fugitive',
-   'tpope/vim-rhubarb',
+   -- 'tpope/vim-rhubarb',
 
    'github/copilot.vim',
 
