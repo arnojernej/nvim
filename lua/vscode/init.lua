@@ -37,4 +37,6 @@ endfunction
 
 command! -nargs=* RG call FindInFiles(<q-args>)
 
+highlight CurSearch guibg=#eeeeee
+
 ]])

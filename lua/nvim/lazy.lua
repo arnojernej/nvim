@@ -31,6 +31,8 @@ require('lazy').setup({
    'tpope/vim-repeat',
    'tpope/vim-surround',
 
+   'mtdl9/vim-log-highlighting',
+
    -- { 'ethanholz/nvim-lastplace', opts = {} },
 
    {
@@ -134,9 +136,12 @@ require('lazy').setup({
       'lukas-reineke/indent-blankline.nvim',
       -- Enable `lukas-reineke/indent-blankline.nvim`
       -- See `:help indent_blankline.txt`
+      main = "ibl",
+      remove_blankline_trail = false,
       opts = {
-         -- char = '┊',
-         show_trailing_blankline_indent = false,
+         indent = {
+            char = '│',
+         },
       },
    },
 
