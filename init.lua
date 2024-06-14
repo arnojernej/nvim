@@ -7,7 +7,7 @@ if vim.g.vscode then
 end
 
 if vim.g.vscode then
-  require("vscode")
+  require("code")
 else
 
   if vim.fn.has('win32') == 1 then

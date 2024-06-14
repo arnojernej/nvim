@@ -1,9 +1,9 @@
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
-require("vscode.lazy")
-require("vscode.map")
-require("vscode.set")
+require("code.lazy")
+require("code.map")
+require("code.set")
 
 local augroup = vim.api.nvim_create_augroup
 -- local ThePrimeagenGroup = augroup('ThePrimeagen', {})
