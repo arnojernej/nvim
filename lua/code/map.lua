@@ -10,7 +10,8 @@ nmap <silent> <esc> :nohlsearch<cr><Cmd>call VSCodeNotify('workbench.action.debu
 nnoremap <silent> <leader>b <Cmd>call VSCodeNotify('workbench.action.quickOpenPreviousEditor')<CR><Cmd>call VSCodeNotify('workbench.action.acceptSelectedQuickOpenItem')<CR>
 nnoremap <silent> K <Cmd>call VSCodeNotify('workbench.action.closeActiveEditor')<CR>
 
-nnoremap <silent> <leader>r <Cmd>call VSCodeNotify('workbench.action.openRecent')<CR>
+" nnoremap <silent> <leader>r <Cmd>call VSCodeNotify('workbench.action.openRecent')<CR>
+nnoremap <silent> <leader>r <Cmd>lua require('vscode').call('workbench.action.openRecent')<CR>
 nnoremap <silent> <leader>p <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
 nnoremap <silent> <leader>e <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
 

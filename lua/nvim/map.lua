@@ -36,12 +36,12 @@ vim.keymap.set('n', 'gN', ':cprev<cr>', { silent = true })
 vim.cmd([[
    autocmd VimEnter * xmap <tab> >gv
    autocmd VimEnter * xmap <s-tab> <gv
+
+   " toggle comments
+   nmap <leader>/ gcc
+   vmap <leader>/ gc
 ]]
 )
-
-vim.keymap.set('n', 'gd', 'gf', { silent = true })
-
--- vim.keymap.set('n', 'n', 'nzz')
 
 -- CUSTOM ONES
 

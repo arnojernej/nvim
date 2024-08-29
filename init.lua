@@ -18,11 +18,9 @@ else
 
   vim.cmd([[
 
-    augroup nord-theme-overrides
-    autocmd!
-    " Use 'nord7' as foreground color for Vim comment titles.
-    autocmd ColorScheme nord highlight Comment gui=italic
-    augroup END
+    set listchars=tab:»·,trail:·,extends:>,precedes:<,space:·
+
+  set listchars=tab:\ \ ,eol:¬
 
   ]])
 
@@ -41,3 +39,6 @@ else
 end
 
 --  TODO: folds and foldmaker
+--
+
+vim.opt.colorcolumn = "80"

@@ -3,3 +3,4 @@ lazy-lock.json
 /plugin/
 .netrwhist
 .DS_STORE
+.luarc.json

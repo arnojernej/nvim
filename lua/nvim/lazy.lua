@@ -33,6 +33,9 @@ require('lazy').setup({
 
    'mtdl9/vim-log-highlighting',
 
+   -- Set dir to current root
+   'airblade/vim-rooter',
+
    -- { 'ethanholz/nvim-lastplace', opts = {} },
 
    {
@@ -124,11 +127,17 @@ require('lazy').setup({
       opts = {
          options = {
             icons_enabled = false,
-            theme = 'nord',
             component_separators = '|',
             section_separators = '',
          },
       },
+   },
+
+   {
+      'kaiuri/nvim-juliana',
+      lazy = false,
+      opts = { --[=[ configuration --]=] },
+      config = true,
    },
 
    {
@@ -139,6 +148,7 @@ require('lazy').setup({
       main = "ibl",
       remove_blankline_trail = false,
       opts = {
+         scope = { enabled = false },
          indent = {
             char = '│',
          },
@@ -185,34 +195,19 @@ require('lazy').setup({
       } -- this is equalent to setup({}) function
    },
 
-   -- {
-   --    'kaiuri/nvim-juliana',
-   --    lazy = false,
-   --    opts = { --[=[ configuration --]=] },
-   --    config = true,
-   -- },
-
-   -- { 'rose-pine/neovim', name = 'rose-pine' },
-
    {
-      'nordtheme/vim',
-      priority = 1000,
-      config = function()
-         vim.cmd.colorscheme 'nord'
-      end,
+      'kaiuri/nvim-juliana',
+      lazy = false,
+      opts = { --[=[ configuration --]=] },
+      config = true,
    },
 
-   -- "gc" to comment visual regions/lines
-   { 'numToStr/Comment.nvim', opts = {
-      toggler = {
-         line = '<leader>/',
-         -- block = '<leader>bc',
-      },
-      opleader = {
-         line = '<leader>/',
-         -- block = '<leader>b',
-      },
-   } },
+   {
+      "folke/ts-comments.nvim",
+      opts = {},
+      event = "VeryLazy",
+      enabled = vim.fn.has("nvim-0.10.0") == 1,
+   },
 
    {
       'jose-elias-alvarez/null-ls.nvim',
