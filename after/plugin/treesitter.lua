@@ -5,10 +5,6 @@ if not vim.g.vscode then
       -- Add languages to be installed here that you want installed for treesitter
       ensure_installed = { 'c', 'cpp', 'c_sharp', 'lua', 'python', 'tsx', 'typescript', 'vim', 'javascript', 'html', 'json', 'markdown', 'yaml', 'css', 'sql' },
 
-      autotag = {
-         enable = true,
-      },
-
       -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
       auto_install = false,
 

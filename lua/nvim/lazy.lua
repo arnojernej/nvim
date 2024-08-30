@@ -194,6 +194,7 @@ require('lazy').setup({
          }
       } -- this is equalent to setup({}) function
    },
+   'nvim-treesitter/playground',
 
    {
       'kaiuri/nvim-juliana',
@@ -210,7 +211,7 @@ require('lazy').setup({
    },
 
    {
-      'jose-elias-alvarez/null-ls.nvim',
+      'nvimtools/none-ls.nvim',
       dependencies = { "nvim-lua/plenary.nvim" },
    }
 

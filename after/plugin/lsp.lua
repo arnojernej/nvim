@@ -58,12 +58,12 @@ if not vim.g.vscode then
       tsserver = {},
       omnisharp = {},
       -- jdtls = {},
-      lua_ls = {
-         Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-         },
-      },
+      -- lua_ls = {
+      --    Lua = {
+      --       workspace = { checkThirdParty = false },
+      --       telemetry = { enable = false },
+      --    },
+      -- },
    }
 
    -- Setup neovim lua configuration
@@ -113,24 +113,24 @@ if not vim.g.vscode then
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
          },
-         ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-               cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-               luasnip.expand_or_jump()
-            else
-               fallback()
-            end
-         end, { 'i', 's' }),
-         ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-               cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-               luasnip.jump(-1)
-            else
-               fallback()
-            end
-         end, { 'i', 's' }),
+         -- ['<Tab>'] = cmp.mapping(function(fallback)
+         --    if cmp.visible() then
+         --       cmp.select_next_item()
+         --    elseif luasnip.expand_or_locally_jumpable() then
+         --       luasnip.expand_or_jump()
+         --    else
+         --       fallback()
+         --    end
+         -- end, { 'i', 's' }),
+         -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+         --    if cmp.visible() then
+         --       cmp.select_prev_item()
+         --    elseif luasnip.locally_jumpable(-1) then
+         --       luasnip.jump(-1)
+         --    else
+         --       fallback()
+         --    end
+         -- end, { 'i', 's' }),
       },
       sources = {
          { name = 'nvim_lsp' },
@@ -156,6 +156,11 @@ if not vim.g.vscode then
    null_ls.setup({
       sources = {
          null_ls.builtins.formatting.prettierd,
+         -- python
+         null_ls.builtins.formatting.black.with({
+            extra_args = { "--line-length=120" }
+         }),
+         --null_ls.builtins.formatting.isort,
       },
 
       on_attach = function(client, bufnr)

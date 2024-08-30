@@ -28,13 +28,19 @@ else
 
   -- [[ PLAYGROUND ]]
 
-  local builtin = require('telescope.builtin')
+  -- local builtin = require('telescope.builtin')
+  --
+  -- vim.keymap.set('n', '<leader>ps', function()
+  --   local search = vim.fn.input("Grep: ")
+  --   builtin.live_grep({ search = search })
+  --   -- vim.cmd([[normal: /test]])
+  -- end)
+  --
+  vim.cmd([[
 
-  vim.keymap.set('n', '<leader>ps', function()
-    local search = vim.fn.input("Grep: ")
-    builtin.live_grep({ search = search })
-    -- vim.cmd([[normal: /test]])
-  end)
+    let g:netrw_keepdir=0
+
+  ]])
 
 end
 

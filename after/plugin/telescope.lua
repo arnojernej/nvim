@@ -5,6 +5,24 @@ if not vim.g.vscode then
    local builtin = require('telescope.builtin')
    local actions = require("telescope.actions")
    require('telescope').setup {
+
+      -- JERNEJAR: this is a workaround for a bug in telescope for opening
+      -- files with () in the path
+      -- https://github.com/nvim-telescope/telescope.nvim/issues/2446#issuecomment-1875123859
+      pickers = {
+         find_files = {
+            hidden = true,
+            find_command = {
+               "rg",
+               "--files",
+               "--glob",
+               "!{.git/*,.svelte-kit/*,target/*,node_modules/*}",
+               "--path-separator",
+               "/",
+            },
+         },
+      },
+
       defaults = {
          mappings = {
             i = {
@@ -48,16 +66,16 @@ if not vim.g.vscode then
    vim.keymap.set('n', '<leader>r', builtin.oldfiles, {})
    vim.keymap.set('n', '<leader>p', builtin.find_files, {})
 
-   -- vim.keymap.set("n", "<Leader>p",
-   --    function()
-   --       local opts = {} -- define here if you want to define something
-   --       vim.fn.system('git rev-parse --is-inside-work-tree')
-   --       if vim.v.shell_error == 0 then
-   --          builtin.git_files(opts)
-   --       else
-   --          builtin.find_files(opts)
-   --       end
-   --    end
-   --    , {noremap = true, silent = true}
-   -- )
+   vim.keymap.set("n", "<Leader>p",
+      function()
+         local opts = {} -- define here if you want to define something
+         vim.fn.system('git rev-parse --is-inside-work-tree')
+         if vim.v.shell_error == 0 then
+            builtin.git_files(opts)
+         else
+            builtin.find_files(opts)
+         end
+      end
+      , {noremap = true, silent = true}
+   )
 end

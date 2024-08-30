@@ -32,7 +32,7 @@ vim.keymap.set('x', 'Q', ":'<,'>normal @q<cr>", { silent = true })
 vim.keymap.set('n', 'gn', ':cnext<cr>', { silent = true })
 vim.keymap.set('n', 'gN', ':cprev<cr>', { silent = true })
 
--- " Tap indent in visual mode
+-- Tap indent in visual mode
 vim.cmd([[
    autocmd VimEnter * xmap <tab> >gv
    autocmd VimEnter * xmap <s-tab> <gv
@@ -43,10 +43,19 @@ vim.cmd([[
 ]]
 )
 
--- CUSTOM ONES
+-- Exit fugitive window with K
+vim.api.nvim_create_autocmd("FileType", {
+   pattern = {"fugitiveblame", "fugitive"},
+   callback = function()
+      vim.api.nvim_buf_set_keymap(0, 'n', 'K', 'gq', { silent = true })
+   end
+})
 
-vim.keymap.set('n', '<leader>ml', 'V:s/; /;\r/g<cr>^MggVG:sort<cr>', { silent = true })
+-- Extract mails
+vim.keymap.set('n', '<leader>x', 'V:s/; /;\\r/g<cr>^MggVG:sort<cr>', { silent = true })
 
+-- Open file explorer
 vim.keymap.set('n', '<leader>e', ':Explore<cr>', { silent = true })
 
+-- Toggle fold
 vim.keymap.set('n', '<space>', 'za', { silent = true })

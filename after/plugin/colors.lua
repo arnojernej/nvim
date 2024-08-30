@@ -18,6 +18,9 @@ else
 		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
+		-- vim.api.nvim_set_hl(0, "Comment", { fg = "#3b4252", bg = "#88c0d0"}) -- FIXME
+		-- vim.api.nvim_set_hl(0, "Spell", { fg = "#3b4252", bg = "#88c0d0"}) -- FIXME
+
 		vim.api.nvim_set_hl(0, "Search", { bg = "#4c566a"})
 		vim.api.nvim_set_hl(0, "IncSearch", { bg = "#4c566a"})
 		vim.api.nvim_set_hl(0, "CurSearch", { fg = "#3b4252", bg = "#88c0d0"})
