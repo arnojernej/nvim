@@ -55,7 +55,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.keymap.set('n', '<leader>x', 'V:s/; /;\\r/g<cr>^MggVG:sort<cr>', { silent = true })
 
 -- Open file explorer
-vim.keymap.set('n', '<leader>e', ':Explore<cr>', { silent = true })
+-- vim.keymap.set('n', '<leader>e', ':Explore<cr>', { silent = true })
+vim.keymap.set("n", "<leader>e", ":Telescope file_browser<CR>")
 
 -- Toggle fold
 vim.keymap.set('n', '<space>', 'za', { silent = true })
