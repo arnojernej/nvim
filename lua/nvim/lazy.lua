@@ -141,8 +141,33 @@ require('lazy').setup({
       config = true,
    },
 
+   { 'shaunsingh/nord.nvim' },
+
    {
-      'shaunsingh/nord.nvim'
+      "rose-pine/neovim", name = "rose-pine",
+      opts = {
+         styles = {
+            transparency = true,
+         },
+         highlight_groups = {
+            TelescopeBackground = { bg = "none" },
+            TelescopeBorder = { fg = "highlight_high", bg = "none" },
+            TelescopeNormal = { bg = "none" },
+            TelescopePromptNormal = { bg = "none" },
+            TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+            TelescopeSelection = { fg = "text", bg = "none" },
+            TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
+            CurSearch = { fg = "base", bg = "rose", inherit = false },
+            Search = { bg = "rose", blend = 20, inherit = false },
+         },
+      }
+   },
+
+   {
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
    },
 
    {
@@ -166,15 +191,15 @@ require('lazy').setup({
    -- Fuzzy Finder Algorithm which requires local dependencies to be built.
    -- Only load if `make` is available. Make sure you have the system
    -- requirements installed.
-   -- {
-   --    'nvim-telescope/telescope-fzf-native.nvim',
-   --    -- NOTE: If you are having trouble with this installation,
-   --    --       refer to the README for telescope-fzf-native for more instructions.
-   --    build = 'make',
-   --    cond = function()
-   --       return vim.fn.executable 'make' == 1
-   --    end,
-   -- },
+   {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      -- NOTE: If you are having trouble with this installation,
+      --       refer to the README for telescope-fzf-native for more instructions.
+      build = 'make',
+      cond = function()
+         return vim.fn.executable 'make' == 1
+      end,
+   },
 
    {
       "folke/trouble.nvim",

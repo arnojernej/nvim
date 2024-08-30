@@ -54,7 +54,7 @@ if not vim.g.vscode then
    }
 
    -- Enable extensions
-   pcall(require('telescope').load_extension 'fzf')
+   -- pcall(require('telescope').load_extension 'fzf')
 
    -- See `:help telescope.builtin`
    vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
