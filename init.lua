@@ -43,8 +43,3 @@ else
   ]])
 
 end
-
---  TODO: folds and foldmaker
---
-
-vim.opt.colorcolumn = "80"

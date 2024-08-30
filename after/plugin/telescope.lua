@@ -34,7 +34,7 @@ if not vim.g.vscode then
 
                   local entry = action_state.get_selected_entry()
 
-                  vim.cmd('edit ' .. entry.path)
+                  vim.cmd('edit ' .. vim.fs.normalize(entry.path))
                   vim.fn.setpos(".", {0, entry.lnum, entry.col, 0})
                end,
                ['<C-u>'] = false,
@@ -51,25 +51,10 @@ if not vim.g.vscode then
             "node_modules",
          },
       },
-      file_browser = {
-      -- theme = "ivy",
-      -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
-      mappings = {
-        ["i"] = {
-          -- your custom insert mode mappings
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
-        },
-      },
-    },
    }
 
-
    -- Enable extensions
-   require('telescope').load_extension 'fzf'
-   require('telescope').load_extension 'file_browser'
+   pcall(require('telescope').load_extension 'fzf')
 
    -- See `:help telescope.builtin`
    vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
