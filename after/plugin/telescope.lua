@@ -4,6 +4,8 @@ if not vim.g.vscode then
    --
    local builtin = require('telescope.builtin')
    local actions = require("telescope.actions")
+   local action_state = require("telescope.actions.state")
+
    require('telescope').setup {
 
       -- JERNEJAR: this is a workaround for a bug in telescope for opening
@@ -26,7 +28,15 @@ if not vim.g.vscode then
       defaults = {
          mappings = {
             i = {
-               ["<esc>"] = actions.close,
+               ["<ESC>"] = actions.close,
+               ['<cr>'] = function(prompt_bufnr)
+                  actions.smart_send_to_qflist(prompt_bufnr)
+
+                  local entry = action_state.get_selected_entry()
+
+                  vim.cmd('edit ' .. entry.path)
+                  vim.fn.setpos(".", {0, entry.lnum, entry.col, 0})
+               end,
                ['<C-u>'] = false,
                ['<C-d>'] = false,
             },
@@ -56,11 +66,11 @@ if not vim.g.vscode then
    --    })
    -- end, { desc = '[/] Fuzzily search in current buffer' })
 
-   vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
-   vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+   -- vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
+   -- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
    vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
    vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-   vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+   vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = '[S]earch by [G]rep' })
    vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 
    vim.keymap.set('n', '<leader>r', builtin.oldfiles, {})
