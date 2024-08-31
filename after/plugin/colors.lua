@@ -12,9 +12,9 @@ else
 
 	function ColorMyPencils(color)
 		-- color = color or "nord"
-		-- color = color or "juliana"
+		color = color or "juliana"
 		-- color = color or "rose-pine"
-		color = color or "rose-pine-moon"
+		-- color = color or "rose-pine-moon"
 
 		vim.cmd.colorscheme(color)
 
@@ -31,10 +31,11 @@ else
 		vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 		vim.api.nvim_set_hl(0, "LineNr", { fg = "#a6acb9", bg = "none" })
 
-		vim.api.nvim_set_hl(0, "@tag.tsx", { fg = "#81a1c1"}) -- blue
-		vim.api.nvim_set_hl(0, "@tag.delimiter.tsx", { fg = "#81a1c1"}) -- blue
-		vim.api.nvim_set_hl(0, "@constructor.tsx", { fg = "#88c0d0"}) -- lightblue
-		vim.api.nvim_set_hl(0, "@tag.attribute.tsx", { fg = "#88c0d0"}) -- lightblue
+		-- vim.api.nvim_set_hl(0, "@tag.tsx", { fg = "#81a1c1"}) -- blue
+		-- vim.api.nvim_set_hl(0, "@tag.delimiter.tsx", { fg = "#81a1c1"}) -- blue
+		-- vim.api.nvim_set_hl(0, "@constructor.tsx", { fg = "#88c0d0"}) -- lightblue
+		-- vim.api.nvim_set_hl(0, "@tag.attribute.tsx", { fg = "#88c0d0"}) -- lightblue
+
 	end
 
 end

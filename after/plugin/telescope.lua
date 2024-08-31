@@ -35,7 +35,10 @@ if not vim.g.vscode then
                   local entry = action_state.get_selected_entry()
 
                   vim.cmd('edit ' .. vim.fs.normalize(entry.path))
-                  vim.fn.setpos(".", {0, entry.lnum, entry.col, 0})
+
+                  if entry.col and entry.lnum then
+                     vim.fn.setpos(".", {0, entry.lnum, entry.col, 0})
+                  end
                end,
                ['<C-u>'] = false,
                ['<C-d>'] = false,

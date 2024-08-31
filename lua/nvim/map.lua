@@ -56,7 +56,17 @@ vim.keymap.set('n', '<leader>x', 'V:s/; /;\\r/g<cr>^MggVG:sort<cr>', { silent = 
 
 -- Open file explorer
 -- vim.keymap.set('n', '<leader>e', ':Explore<cr>', { silent = true })
-vim.keymap.set("n", "<leader>e", ":Telescope file_browser<CR>")
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 
 -- Toggle fold
 vim.keymap.set('n', '<space>', 'za', { silent = true })
+
+-- NvimTree
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "NvimTree",
+  callback = function()
+    -- Close nvim-tree with ESC
+    vim.api.nvim_buf_set_keymap(0, "n", "<Esc>", ":NvimTreeClose<CR>", { noremap = true, silent = true })
+
+  end
+})

@@ -9,7 +9,11 @@ if not vim.loop.fs_stat(lazypath) then
       lazypath,
    }
 end
+
 vim.opt.rtp:prepend(lazypath)
+
+local HEIGHT_RATIO = 0.8
+local WIDTH_RATIO = 0.8
 
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
@@ -36,7 +40,72 @@ require('lazy').setup({
    -- Set dir to current root
    'airblade/vim-rooter',
 
-   -- { 'ethanholz/nvim-lastplace', opts = {} },
+   {
+      'ethanholz/nvim-lastplace',
+      opts={
+	 lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
+	 lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
+	 lastplace_open_folds = true
+      }
+   },
+
+   {
+      'nvim-tree/nvim-tree.lua',
+      opts = {
+
+	 filters = {
+	    dotfiles = false,  -- if you want to show dotfiles, set this to true
+	    custom = {
+	       '.git',
+	       'node_modules',
+	       '__pycache__',
+	       '.cache',
+	       '.vscode',
+	       '.idea',
+	       '.DS_Store',
+	       '.venv',
+	       '.pytest_cache',
+	       '.mypy_cache',
+	       '.tox',
+	    },
+	 },
+
+	 -- update to root dir
+	 update_focused_file = {
+	    enable = true,
+	    update_cwd = true,
+	 },
+	 respect_buf_cwd = true,
+
+	 -- center window like telescope
+	 view = {
+	    float = {
+	       enable = true,
+	       open_win_config = function()
+		  local screen_w = vim.opt.columns:get()
+		  local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+		  local window_w = screen_w * WIDTH_RATIO
+		  local window_h = screen_h * HEIGHT_RATIO
+		  local window_w_int = math.floor(window_w)
+		  local window_h_int = math.floor(window_h)
+		  local center_x = (screen_w - window_w) / 2
+		  - vim.opt.cmdheight:get()
+		  return {
+		     border = 'rounded',
+		     relative = 'editor',
+		     row  = 2,
+		     col = center_x,
+		     width = window_w_int,
+		     height = window_h_int,
+		  }
+	       end,
+	    },
+	    width = function()
+	       return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+	    end,
+	 },
+      }
+      },
 
    {
       'windwp/nvim-autopairs',
@@ -47,6 +116,7 @@ require('lazy').setup({
    { 'windwp/nvim-ts-autotag', opts = {} },
 
    {
+      -- Folding
       'kevinhwang91/nvim-ufo',
       dependencies = { 'kevinhwang91/promise-async' }
    },
@@ -55,15 +125,10 @@ require('lazy').setup({
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
       opts = {
-         -- your configuration comes here
-         -- or leave it empty to use the default settings
-         -- refer to the configuration section below
          signs = false
       }
    },
 
-   -- NOTE: This is where your plugins related to LSP can be installed.
-   --  The configuration is done below. Search for lspconfig to find it below.
    {
       -- LSP Configuration & Plugins
       'neovim/nvim-lspconfig',
@@ -95,7 +160,6 @@ require('lazy').setup({
 
          -- Adds LSP completion capabilities
          'hrsh7th/cmp-nvim-lsp',
-
          'hrsh7th/cmp-nvim-lua',
          'hrsh7th/cmp-buffer',
          'hrsh7th/cmp-path',
@@ -104,9 +168,6 @@ require('lazy').setup({
          'rafamadriz/friendly-snippets',
       },
    },
-
-   -- Useful plugin to show you pending keybinds.
-   -- { 'folke/which-key.nvim', opts = {} },
 
    {
       -- Adds git releated signs to the gutter, as well as utilities for managing changes
@@ -227,13 +288,6 @@ require('lazy').setup({
    'nvim-treesitter/playground',
 
    {
-      'kaiuri/nvim-juliana',
-      lazy = false,
-      opts = { --[=[ configuration --]=] },
-      config = true,
-   },
-
-   {
       "folke/ts-comments.nvim",
       opts = {},
       event = "VeryLazy",
@@ -243,7 +297,7 @@ require('lazy').setup({
    {
       'nvimtools/none-ls.nvim',
       dependencies = { "nvim-lua/plenary.nvim" },
-   }
+   },
 
    -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
    --       These are some example plugins that I've included in the kickstart repository.
@@ -258,5 +312,5 @@ require('lazy').setup({
    --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
    --
 
-   -- { import = 'plugin' },
+   { import = 'plugin' },
 }, {})
