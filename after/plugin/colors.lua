@@ -31,9 +31,9 @@ else
 		vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 		vim.api.nvim_set_hl(0, "LineNr", { fg = "#a6acb9", bg = "none" })
 
-		vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = "#fac761" })
-		vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", { fg = "#fac761" })
-		vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = "#fac761" })
+		vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = "#95b2d6" })
+		vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", { fg = "#95b2d6" })
+		vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = "#95b2d6" })
 		vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#fac761" })
 
 		-- vim.api.nvim_set_hl(0, "@tag.tsx", { fg = "#81a1c1"}) -- blue
