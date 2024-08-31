@@ -31,6 +31,11 @@ else
 		vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
 		vim.api.nvim_set_hl(0, "LineNr", { fg = "#a6acb9", bg = "none" })
 
+		vim.api.nvim_set_hl(0, "NvimTreeFolderName", { fg = "#fac761" })
+		vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", { fg = "#fac761" })
+		vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = "#fac761" })
+		vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#fac761" })
+
 		-- vim.api.nvim_set_hl(0, "@tag.tsx", { fg = "#81a1c1"}) -- blue
 		-- vim.api.nvim_set_hl(0, "@tag.delimiter.tsx", { fg = "#81a1c1"}) -- blue
 		-- vim.api.nvim_set_hl(0, "@constructor.tsx", { fg = "#88c0d0"}) -- lightblue
