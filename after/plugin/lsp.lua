@@ -103,6 +103,10 @@ if not vim.g.vscode then
             luasnip.lsp_expand(args.body)
          end,
       },
+      window = {
+         completion = cmp.config.window.bordered(), -- Adds border to the completion window
+         documentation = cmp.config.window.bordered(), -- Adds border to the documentation window
+      },
       mapping = cmp.mapping.preset.insert {
          ['<C-n>'] = cmp.mapping.select_next_item(),
          ['<C-p>'] = cmp.mapping.select_prev_item(),
