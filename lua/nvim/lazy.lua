@@ -251,11 +251,18 @@ require('lazy').setup({
       main = "ibl",
       remove_blankline_trail = false,
       opts = {
-         scope = { enabled = false },
+	 scope = { enabled = false },
          indent = {
             char = '│',
          },
       },
+   },
+
+   { "lukas-reineke/virt-column.nvim",
+      opts = {
+	 -- char = '┊',
+	 char = '│',
+      }
    },
 
    -- Fuzzy Finder (files, lsp, etc)
