@@ -81,3 +81,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
   end
 })
+
+if vim.fn.has("win32") == 1 then
+  vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
+else
+end
