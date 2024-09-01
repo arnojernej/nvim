@@ -16,13 +16,17 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 vim.keymap.set('n', '<enter>', ':w<cr>', { silent = true })
 vim.keymap.set('x', '<enter>', '<esc>:w<cr>', { silent = true })
--- Remap Enter in Quickfix window to open the selected entry
+
+-- Remap Enter in Quickfix window to open the selected entry, again
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "qf",
     callback = function()
         vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<CR>", { noremap = true, silent = true })
     end
 })
+
+vim.keymap.set('n', 'gq', ':copen<cr>', { silent = true })
+
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { silent = true })
 vim.keymap.set('n', '*', '*N', { silent = true })
 
