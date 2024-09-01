@@ -34,7 +34,9 @@ if not vim.g.vscode then
 
                   local entry = action_state.get_selected_entry()
 
-                  vim.cmd('edit ' .. vim.fs.normalize(entry.path))
+                  if entry.path then
+                     vim.cmd('edit ' .. vim.fs.normalize(entry.path))
+                  end
 
                   if entry.col and entry.lnum then
                      vim.fn.setpos(".", {0, entry.lnum, entry.col, 0})
@@ -45,7 +47,7 @@ if not vim.g.vscode then
             },
          },
          preview = {
-            hide_on_startup = true
+            -- hide_on_startup = true
          },
          file_ignore_patterns = {
             "venv",
