@@ -22,9 +22,7 @@ else
 
   vim.cmd([[
 
-    set listchars=tab:»·,trail:·,extends:>,precedes:<,space:·
-
-  set listchars=tab:\ \ ,eol:¬
+    " set listchars=tab:»·,trail:·,extends:>,precedes:<,space:·
 
   ]])
 

@@ -10,6 +10,21 @@ if not vim.loop.fs_stat(lazypath) then
    }
 end
 
+-- this is for nvim-tree. rempaing <space> to open file in nvim-tree
+local function my_on_attach(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.set('n', '<space>', api.node.open.edit, opts('Open'))
+end
+
 vim.opt.rtp:prepend(lazypath)
 
 local HEIGHT_RATIO = 0.8
@@ -60,10 +75,12 @@ require('lazy').setup({
       }
    },
 
+
    {
       'nvim-tree/nvim-tree.lua',
       opts = {
 
+	 on_attach = my_on_attach,
 	 filters = {
 	    dotfiles = false,  -- if you want to show dotfiles, set this to true
 	    custom = {
@@ -85,7 +102,6 @@ require('lazy').setup({
 	 -- update to root dir
 	 update_focused_file = {
 	    enable = true,
-	    update_cwd = true,
 	 },
 	 respect_buf_cwd = true,
 
