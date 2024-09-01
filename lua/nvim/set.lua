@@ -70,3 +70,4 @@ require('ufo').setup({
 -- UFO setup END
 
 vim.opt.colorcolumn = "80"
+vim.opt.pumheight = 10

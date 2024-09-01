@@ -67,6 +67,7 @@ require('lazy').setup({
 	       '.pytest_cache',
 	       '.mypy_cache',
 	       '.tox',
+	       '.next',
 	    },
 	 },
 
