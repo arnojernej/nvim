@@ -8,23 +8,6 @@ if not vim.g.vscode then
 
    require('telescope').setup {
 
-      -- JERNEJAR: this is a workaround for a bug in telescope for opening
-      -- files with () in the path
-      -- https://github.com/nvim-telescope/telescope.nvim/issues/2446#issuecomment-1875123859
-      pickers = {
-         find_files = {
-            hidden = true,
-            find_command = {
-               "rg",
-               "--files",
-               "--glob",
-               "!{.git/*,.svelte-kit/*,target/*,node_modules/*}",
-               "--path-separator",
-               "/",
-            },
-         },
-      },
-
       defaults = {
          mappings = {
             i = {
