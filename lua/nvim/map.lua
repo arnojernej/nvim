@@ -78,7 +78,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     -- Close nvim-tree with ESC
     vim.api.nvim_buf_set_keymap(0, "n", "<Esc>", ":NvimTreeClose<CR>", { noremap = true, silent = true })
-
+    vim.api.nvim_set_hl(0, 'NvimTreeSignColumn', { bg = "none" })
   end
 })
 
