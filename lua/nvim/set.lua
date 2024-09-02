@@ -71,3 +71,9 @@ require('ufo').setup({
 
 vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
+
+-- Set the width of the number column
+vim.opt.numberwidth = 4
+
+-- Always show the sign column, but you can adjust its width by setting `numberwidth` and `signcolumn`
+vim.opt.signcolumn = "yes:1"

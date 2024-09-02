@@ -78,6 +78,9 @@ require('lazy').setup({
 
    {
       'nvim-tree/nvim-tree.lua',
+      dependencies = {
+	 'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      },
       opts = {
 
 	 on_attach = my_on_attach,
@@ -277,6 +280,7 @@ require('lazy').setup({
    { "lukas-reineke/virt-column.nvim",
       opts = {
 	 -- char = '┊',
+	 -- char ='╎',
 	 char = '│',
       }
    },
@@ -332,6 +336,49 @@ require('lazy').setup({
    {
       'nvimtools/none-ls.nvim',
       dependencies = { "nvim-lua/plenary.nvim" },
+   },
+
+   {
+      'petertriho/nvim-scrollbar',
+      opts = {
+	 handle = {
+	    color = '#4c566a',
+	 },
+	 handlers = {
+	    cursor = false,
+	    diagnostic = true,
+	    gitsigns = true, -- Requires gitsigns
+	    handle = true,
+	 },
+      },
+   },
+
+   {
+      'b0o/incline.nvim',
+      opts = {
+	 render = function(props)
+	    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
+	    return
+	       {
+		  -- ' ',
+		  filename,
+		  -- ' ',
+		  -- guifg='#d8dee9',
+		  -- guibg='#444e59',
+	       }
+	 end,
+	 window = {
+	    placement = {
+	       horizontal = 'right',
+	       vertical = 'top',
+	    },
+	    padding = 1,
+	    margin = {
+	       vertical = 0,
+	       horizontal = 0,
+	    },
+	 },
+      },
    },
 
    -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
