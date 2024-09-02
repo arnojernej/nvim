@@ -81,3 +81,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
   end
 })
+
+-- Fold 1 level
+vim.keymap.set('n', '<s-space>', 'zMzv', { silent = true })
