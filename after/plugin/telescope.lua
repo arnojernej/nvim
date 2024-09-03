@@ -17,8 +17,8 @@ if not vim.g.vscode then
 
                   local entry = action_state.get_selected_entry()
 
-                  if entry.path then
-                     vim.cmd('edit ' .. vim.fs.normalize(entry.path))
+                  if entry.filename then
+                     vim.cmd('edit ' .. vim.fs.normalize(entry.filename))
                   end
 
                   if entry.col and entry.lnum then

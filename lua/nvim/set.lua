@@ -72,4 +72,4 @@ require('ufo').setup({
 vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
 
-vim.opt.statuscolumn = "%=%s %l  "
+vim.opt.statuscolumn = "%=%l%s"

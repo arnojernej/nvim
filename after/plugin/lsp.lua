@@ -27,8 +27,15 @@ if not vim.g.vscode then
       nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
       -- See `:help K` for why this keymap
-      -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+      nmap('<leader>i', vim.lsp.buf.hover, 'Hover Documentation')
       nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+      -- vim.api.nvim_create_autocmd("CursorHold", {
+      --    pattern = "*",
+      --    callback = function()
+      --       vim.lsp.buf.hover()
+      --    end,
+      -- })
 
       -- Lesser used LSP functionality
       nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -117,24 +124,6 @@ if not vim.g.vscode then
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
          },
-         -- ['<Tab>'] = cmp.mapping(function(fallback)
-         --    if cmp.visible() then
-         --       cmp.select_next_item()
-         --    elseif luasnip.expand_or_locally_jumpable() then
-         --       luasnip.expand_or_jump()
-         --    else
-         --       fallback()
-         --    end
-         -- end, { 'i', 's' }),
-         -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-         --    if cmp.visible() then
-         --       cmp.select_prev_item()
-         --    elseif luasnip.locally_jumpable(-1) then
-         --       luasnip.jump(-1)
-         --    else
-         --       fallback()
-         --    end
-         -- end, { 'i', 's' }),
       },
       sources = {
          { name = 'nvim_lsp' },
@@ -184,5 +173,21 @@ if not vim.g.vscode then
       end,
 
    })
+
+   vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+      config = config or {
+         border = "rounded",
+      }
+      config.focus_id = ctx.method
+      if not (result and result.contents) then
+         return
+      end
+      local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+      markdown_lines = vim.split(vim.fn.trim(vim.fn.join(markdown_lines, "\n")), "\n")
+      if vim.tbl_isempty(markdown_lines) then
+         return
+      end
+      return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
+   end
 
 end
