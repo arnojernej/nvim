@@ -63,9 +63,6 @@ require('lazy').setup({
 
    'mtdl9/vim-log-highlighting',
 
-   -- Set dir to current root
-   'airblade/vim-rooter',
-
    {
       'ethanholz/nvim-lastplace',
       opts={

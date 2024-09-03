@@ -73,3 +73,9 @@ vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
 
 vim.opt.statuscolumn = "%=%l%s"
+
+-- Change directory to the current directory on start
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = "*",
+  command = "silent! lcd %:p:h"
+})
