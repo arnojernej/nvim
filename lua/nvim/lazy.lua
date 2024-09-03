@@ -216,11 +216,28 @@ require('lazy').setup({
       'nvim-lualine/lualine.nvim',
       -- See `:help lualine.txt`
       opts = {
-         options = {
-            icons_enabled = false,
-            component_separators = '|',
-            section_separators = '',
-         },
+	 options = {
+	    icons_enabled = false,
+	    component_separators = '|',
+	    section_separators = '',
+	 },
+	 sections = {
+	    lualine_c = {
+	       {
+		  'filename',
+		  file_status = true,
+		  newfile_status = true,
+		  path = 1,
+		  shorting_target = 40,
+		  symbols = {
+		     modified = '[+]',
+		     readonly = '[-]',
+		     unnamed = '[No Name]',
+		     newfile = '[New]',
+		  }
+	       }
+	    }
+	 }
       },
    },
 
@@ -362,8 +379,8 @@ require('lazy').setup({
 		  -- ' ',
 		  filename,
 		  -- ' ',
-		  -- guifg='#d8dee9',
-		  -- guibg='#444e59',
+		  guifg='#d8dee9',
+		  guibg='#444e59',
 	       }
 	 end,
 	 window = {
