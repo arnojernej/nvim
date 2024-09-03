@@ -41,6 +41,9 @@ vim.cmd[[
 
     " autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
+    let g:rooter_patterns = ['.git', '*.sln']
+    let g:rooter_change_directory_for_non_project_files = 'current'
+
 ]]
 
 -- UFO setup START
@@ -73,9 +76,3 @@ vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
 
 vim.opt.statuscolumn = "%=%l%s"
-
--- Change directory to the current directory on start
-vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = "*",
-  command = "silent! lcd %:p:h"
-})
