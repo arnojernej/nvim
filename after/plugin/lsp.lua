@@ -17,7 +17,7 @@ if not vim.g.vscode then
       end
 
       nmap('R', vim.lsp.buf.rename, '[R]e[n]ame')
-      nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+      nmap('<leader>.', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
       nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
       nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -102,6 +102,7 @@ if not vim.g.vscode then
    local cmp = require 'cmp'
    local luasnip = require 'luasnip'
    require('luasnip.loaders.from_vscode').lazy_load()
+   require("luasnip.loaders.from_vscode").lazy_load({ paths = { "../../lua/snippets/" } })
    luasnip.config.setup {}
 
    cmp.setup {

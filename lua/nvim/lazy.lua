@@ -317,15 +317,15 @@ require('lazy').setup({
       end,
    },
 
-   {
-      "folke/trouble.nvim",
-      -- dependencies = { "nvim-tree/nvim-web-devicons" },
-      opts = {
-         -- your configuration comes here
-         -- or leave it empty to use the default settings
-         -- refer to the configuration section below
-      },
-   },
+   -- {
+   --    "folke/trouble.nvim",
+   --    -- dependencies = { "nvim-tree/nvim-web-devicons" },
+   --    opts = {
+   --       -- your configuration comes here
+   --       -- or leave it empty to use the default settings
+   --       -- refer to the configuration section below
+   --    },
+   -- },
 
    {
       -- Highlight, edit, and navigate code
@@ -358,7 +358,8 @@ require('lazy').setup({
       'petertriho/nvim-scrollbar',
       opts = {
 	 handle = {
-	    color = '#4c566a',
+	    -- color = '#4c566a',
+	    color = '#3f4750',
 	 },
 	 handlers = {
 	    cursor = false,
@@ -396,6 +397,11 @@ require('lazy').setup({
 	 },
       },
    },
+
+   -- {
+   --   "luckasRanarison/clear-action.nvim",
+   --   opts = {}
+   -- },
 
    -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
    --       These are some example plugins that I've included in the kickstart repository.
