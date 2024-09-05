@@ -86,5 +86,6 @@ if vim.fn.has("win32") == 1 then
   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
 else
 end
+
 -- Fold 1 level
-vim.keymap.set('n', '<s-space>', 'zMzv', { silent = true })
+vim.keymap.set('n', '<F13>', 'zM', { silent = true })
