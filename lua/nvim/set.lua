@@ -43,3 +43,5 @@ vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
 
 vim.opt.statuscolumn = "%=%l %s"
+
+vim.opt.modeline = true
