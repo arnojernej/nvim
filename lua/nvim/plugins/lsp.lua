@@ -1,5 +1,3 @@
--- vim: set foldlevel=1:
-
 return {
 
   { -- Main LSP Configuration
@@ -221,22 +219,15 @@ return {
         },
       }
 
-    -- JERNEJAR: style hover windows
-    vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-        config = config or {
-            border = "rounded",
+      -- Custom hover handler that trims blank lines from the hover text
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover,
+        {
+          border = "rounded", -- Optional: Set rounded borders if desired
+          -- Custom formatting to trim leading/trailing blank lines
+          focusable = false,
         }
-        config.focus_id = ctx.method
-        if not (result and result.contents) then
-            return
-        end
-        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-        markdown_lines = vim.split(vim.fn.trim(vim.fn.join(markdown_lines, "\n")), "\n")
-        if vim.tbl_isempty(markdown_lines) then
-            return
-        end
-        return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
-    end
+      )
 
     end,
   },
@@ -358,6 +349,19 @@ return {
           },
         },
       }
+
+      vim.diagnostic.config({
+        -- update_in_insert = true,
+        float = {
+          focusable = false,
+          style = "minimal",
+          border = "rounded",
+          source = "always",
+          header = "",
+          prefix = "",
+        },
+      })
+
     end,
   },
 
