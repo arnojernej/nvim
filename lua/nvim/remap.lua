@@ -25,6 +25,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+-- Quickfix jumping
+vim.keymap.set('n', 'gn', ':cnext<cr>', { silent = true })
+vim.keymap.set('n', 'gN', ':cprev<cr>', { silent = true })
+
 vim.keymap.set('n', 'gq', ':copen<cr>', { silent = true })
 
 vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { silent = true })
@@ -39,48 +43,22 @@ vim.keymap.set('x', '.', ":'<,'>normal .<cr>", { silent = true })
 vim.keymap.set('n', 'Q', '@q', { silent = true })
 vim.keymap.set('x', 'Q', ":'<,'>normal @q<cr>", { silent = true })
 
--- quickfix jumping
-vim.keymap.set('n', 'gn', ':cnext<cr>', { silent = true })
-vim.keymap.set('n', 'gN', ':cprev<cr>', { silent = true })
-
--- Tap indent in visual mode
+-- toggle comments
 vim.cmd([[
-   autocmd VimEnter * xmap <tab> >gv
-   autocmd VimEnter * xmap <s-tab> <gv
-
-   " toggle comments
    nmap <leader>/ gcc
    vmap <leader>/ gc
 ]]
 )
 
--- Exit fugitive window with K
-vim.api.nvim_create_autocmd("FileType", {
-   pattern = {"fugitiveblame", "fugitive"},
-   callback = function()
-      vim.api.nvim_buf_set_keymap(0, 'n', 'K', 'gq', { silent = true })
-   end
-})
+-- Tap indent in visual mode
+vim.keymap.set('x', '<tab>', '>gv', { silent = true })
+vim.keymap.set('x', '<s-tab>', '<gv', { silent = true })
 
 -- Extract mails
 vim.keymap.set('n', '<leader>x', 'V:s/; /;\\r/g<cr>^MggVG:sort<cr>', { silent = true })
 
--- Open file explorer
--- vim.keymap.set('n', '<leader>e', ':Explore<cr>', { silent = true })
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
-
 -- Toggle fold
 vim.keymap.set('n', '<space>', 'za', { silent = true })
-
--- NvimTree
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "NvimTree",
-  callback = function()
-    -- Close nvim-tree with ESC
-    vim.api.nvim_buf_set_keymap(0, "n", "<Esc>", ":NvimTreeClose<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_hl(0, 'NvimTreeSignColumn', { bg = "none" })
-  end
-})
 
 if vim.fn.has("win32") == 1 then
   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })

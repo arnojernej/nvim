@@ -1,3 +1,5 @@
+vim.o.shadafile = "NONE"
+
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
 
