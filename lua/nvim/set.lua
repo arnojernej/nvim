@@ -45,3 +45,5 @@ vim.opt.pumheight = 10
 vim.opt.statuscolumn = "%=%l %s"
 
 vim.opt.modeline = true
+
+vim.cmd("language en_US")
