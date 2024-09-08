@@ -169,7 +169,7 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        -- tsserver = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -252,12 +252,14 @@ return {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+              require("luasnip").filetype_extend("typescriptreact", { "tsdoc" })
+              require("luasnip").filetype_extend("typescript", { "tsdoc" })
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -267,13 +269,19 @@ return {
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-      "hrsh7th/cmp-buffer",
+      'hrsh7th/cmp-buffer',
+
+      -- Adds icons to the completion menu
+      'onsails/lspkind.nvim',
+
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+
+      local lspkind = require('lspkind')
 
       cmp.setup {
 
@@ -340,7 +348,7 @@ return {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'buffers',
+          { name = 'buffer',
             option = {
               get_bufnrs = function()
                 return vim.api.nvim_list_bufs()
@@ -348,6 +356,24 @@ return {
             }
           },
         },
+
+        formatting = {
+          format = function(entry, vim_item)
+            -- Set the kind icons and display both the kind and the source
+            vim_item.kind = string.format('%s %s', lspkind.presets.default[vim_item.kind], vim_item.kind)
+
+            -- Set the source name (e.g., "LSP", "Buffer", "Snip")
+            vim_item.menu = ({
+              nvim_lsp = "[LSP]",
+              luasnip = "[Snippet]",
+              buffer = "[Buffer]",
+              path = "[Path]",
+            })[entry.source.name]
+
+            return vim_item
+          end,
+        },
+
       }
 
       vim.diagnostic.config({
