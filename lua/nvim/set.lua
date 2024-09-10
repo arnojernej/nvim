@@ -1,3 +1,5 @@
+vim.cmd('set shada="NONE"')
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.timeoutlen = 1500
@@ -25,7 +27,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 50
+-- vim.o.updatetime = 50
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 

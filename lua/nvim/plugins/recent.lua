@@ -1,13 +1,13 @@
 return {
 
-   {
-      'prochri/telescope-all-recent.nvim',
-      dependencies = {
-         "nvim-telescope/telescope.nvim",
-         "kkharji/sqlite.lua",
-      },
-      opts = { }
-   },
+   -- {
+   --    'prochri/telescope-all-recent.nvim',
+   --    dependencies = {
+   --       "nvim-telescope/telescope.nvim",
+   --       "kkharji/sqlite.lua",
+   --    },
+   --    opts = { }
+   -- },
 
    {
       "nvim-telescope/telescope-frecency.nvim",

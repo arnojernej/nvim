@@ -36,6 +36,7 @@ vim.keymap.set('n', '*', '*N', { silent = true })
 
 vim.keymap.set('n', '<leader>b', ':b#<cr>', { silent = true })
 vim.keymap.set('n', 'K', ':bd<cr>', { silent = true })
+vim.keymap.set('n', '<C-K>', ':bd<cr>', { silent = true })
 
 vim.keymap.set('n', '.', '.`[', { silent = true })
 vim.keymap.set('x', '.', ":'<,'>normal .<cr>", { silent = true })

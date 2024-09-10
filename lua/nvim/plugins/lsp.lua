@@ -170,6 +170,10 @@ return {
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
+        prettierd = {
+          tabWidth = 2,
+          useTabs = false,
+        },
 
         lua_ls = {
           -- cmd = {...},
