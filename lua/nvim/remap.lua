@@ -68,3 +68,6 @@ end
 
 -- Fold 1 level
 vim.keymap.set('n', '<F13>', ':%foldc<cr>', { silent = true })
+
+vim.keymap.set('n', '<C-[>', '{', { silent = true })
+vim.keymap.set('n', '<C-]>', '}', { silent = true })
