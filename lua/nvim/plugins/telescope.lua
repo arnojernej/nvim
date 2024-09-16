@@ -11,6 +11,12 @@ return {
 
          require('telescope').setup {
 
+            -- pickers = {
+            --    oldfiles = {
+            --       cwd_only = true,
+            --    }
+            -- },
+
             defaults = {
 
                path_display = { "truncate" },  -- Truncate long file paths
@@ -70,8 +76,8 @@ return {
          vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = '[S]earch by [G]rep' })
          vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
 
-         -- vim.keymap.set('n', '<leader>r', function() builtin.oldfiles() end, {})
-         vim.keymap.set('n', '<leader>r', ":Telescope frecency<cr>", {})
+         vim.keymap.set('n', '<leader>r', function() builtin.oldfiles() end, {})
+         -- vim.keymap.set('n', '<leader>r', ":Telescope frecency<cr>", {})
          vim.keymap.set('n', '<leader>p', function() builtin.find_files() end, {})
 
          -- vim.keymap.set("n", "<Leader>p",

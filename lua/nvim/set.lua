@@ -1,4 +1,4 @@
-vim.cmd('set shada="NONE"')
+-- vim.cmd('set shada="NONE"')
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '

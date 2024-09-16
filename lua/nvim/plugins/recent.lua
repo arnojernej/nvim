@@ -9,16 +9,16 @@ return {
    --    opts = { }
    -- },
 
-   {
-      "nvim-telescope/telescope-frecency.nvim",
-      config = function()
-         require("telescope").load_extension "frecency"
-      end,
-      opts = {
-         workspaces = {
-            ["dev"] = "~/dev",
-         }
-      }
-   },
+   -- {
+   --    "nvim-telescope/telescope-frecency.nvim",
+   --    config = function()
+   --       require("telescope").load_extension "frecency"
+   --    end,
+   --    opts = {
+   --       workspaces = {
+   --          ["dev"] = "~/dev",
+   --       }
+   --    }
+   -- },
 
 }
