@@ -36,7 +36,7 @@ vim.keymap.set('n', '*', '*N', { silent = true })
 
 vim.keymap.set('n', '<leader>b', ':b#<cr>', { silent = true })
 vim.keymap.set('n', 'K', ':bd<cr>', { silent = true })
-vim.keymap.set('n', '<C-K>', ':bd<cr>', { silent = true })
+-- vim.keymap.set('n', '<C-K>', ':bd<cr>', { silent = true })
 
 vim.keymap.set('n', '.', '.`[', { silent = true })
 vim.keymap.set('x', '.', ":'<,'>normal .<cr>", { silent = true })
@@ -58,16 +58,14 @@ vim.keymap.set('x', '<s-tab>', '<gv', { silent = true })
 -- Extract mails
 vim.keymap.set('n', '<leader>x', 'V:s/; /;\\r/g<cr>^MggVG:sort<cr>', { silent = true })
 
--- Toggle fold
-vim.keymap.set('n', '<space>', 'za', { silent = true })
-
 if vim.fn.has("win32") == 1 then
   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
 else
+  vim.keymap.set('v', '<leader>s', ':%!sqlfmt - 2>/dev/null<cr>', { silent = true })
 end
 
 -- Fold 1 level
 vim.keymap.set('n', '<F13>', ':%foldc<cr>', { silent = true })
 
-vim.keymap.set('n', '<C-[>', '{', { silent = true })
-vim.keymap.set('n', '<C-]>', '}', { silent = true })
+vim.keymap.set('n', '<C-p>', '{', { silent = false })
+vim.keymap.set('n', '<C-n>', '}', { silent = false })

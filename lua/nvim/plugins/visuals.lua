@@ -1,34 +1,34 @@
 return {
 
-   {
-      -- Set lualine as statusline
-      'nvim-lualine/lualine.nvim',
-      -- See `:help lualine.txt`
-      opts = {
-         options = {
-            icons_enabled = false,
-            component_separators = '|',
-            section_separators = '',
-         },
-         sections = {
-            lualine_c = {
-               {
-                  'filename',
-                  file_status = true,
-                  newfile_status = true,
-                  path = 1,
-                  shorting_target = 40,
-                  symbols = {
-                     modified = '[+]',
-                     readonly = '[-]',
-                     unnamed = '[No Name]',
-                     newfile = '[New]',
-                  }
-               }
-            }
-         }
-      },
-   },
+   -- {
+   --    -- Set lualine as statusline
+   --    'nvim-lualine/lualine.nvim',
+   --    -- See `:help lualine.txt`
+   --    opts = {
+   --       options = {
+   --          icons_enabled = false,
+   --          component_separators = '|',
+   --          section_separators = '',
+   --       },
+   --       sections = {
+   --          lualine_c = {
+   --             {
+   --                'filename',
+   --                file_status = true,
+   --                newfile_status = true,
+   --                path = 1,
+   --                shorting_target = 40,
+   --                symbols = {
+   --                   modified = '[+]',
+   --                   readonly = '[-]',
+   --                   unnamed = '[No Name]',
+   --                   newfile = '[New]',
+   --                }
+   --             }
+   --          }
+   --       }
+   --    },
+   -- },
 
    {
       "lukas-reineke/virt-column.nvim",

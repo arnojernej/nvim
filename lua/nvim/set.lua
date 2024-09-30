@@ -1,5 +1,3 @@
--- vim.cmd('set shada="NONE"')
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.timeoutlen = 1500
@@ -41,7 +39,7 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
-vim.o.cursorline = true
+-- vim.o.cursorline = true
 
 vim.o.scrolloff = 2
 vim.o.sidescrolloff = 3

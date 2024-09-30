@@ -52,7 +52,7 @@ return {
    },
 
    -- { 'shaunsingh/nord.nvim' },
-   --
+
    -- {
    --    "rose-pine/neovim", name = "rose-pine",
    --    opts = {
@@ -70,9 +70,12 @@ return {
    --          CurSearch = { fg = "base", bg = "rose", inherit = false },
    --          Search = { bg = "rose", blend = 20, inherit = false },
    --       },
-   --    }
+   --    },
+   --    config = function()
+   --       ColorMyPencils("rose-pine-moon")
+   --    end,
    -- },
-   --
+
    -- {
    --    "folke/tokyonight.nvim",
    --    lazy = false,
