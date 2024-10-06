@@ -67,5 +67,16 @@ end
 -- Fold 1 level
 vim.keymap.set('n', '<F13>', ':%foldc<cr>', { silent = true })
 
-vim.keymap.set('n', '<C-p>', '{', { silent = false })
-vim.keymap.set('n', '<C-n>', '}', { silent = false })
+
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.local/scripts/tmux-sessionizer<CR>")
+
+-- local group = vim.api.nvim_create_augroup("markdown_autocommands", { clear = true })
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = "*",
+--   callback = function(ev)
+--     -- actual mapping
+--     vim.keymap.set('n', '<C-p>', '{', { silent = false })
+--     vim.keymap.set('n', '<C-n>', '}', { silent = false })
+--   end,
+--   group = group
+-- })

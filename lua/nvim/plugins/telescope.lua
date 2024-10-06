@@ -19,6 +19,18 @@ return {
 
             defaults = {
 
+               layout_config = {
+                  width = 0.99,
+                  height = 0.9,
+                  preview_cutoff = 120,
+                  horizontal = {
+                     preview_width = 0.5,
+                  },
+                  vertical = {
+                     preview_height = 0.5,
+                  },
+               },
+
                path_display = { "truncate" },  -- Truncate long file paths
 
                mappings = {

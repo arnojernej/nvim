@@ -15,7 +15,7 @@ local function my_on_attach(bufnr)
 end
 
 local HEIGHT_RATIO = 0.8
-local WIDTH_RATIO = 0.8
+local WIDTH_RATIO = 0.97
 
 return {
 
