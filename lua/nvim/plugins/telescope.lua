@@ -1,4 +1,7 @@
 return {
+
+   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+
    {
       'nvim-telescope/telescope.nvim',
       branch = '0.1.x',
@@ -66,6 +69,8 @@ return {
                },
             },
          }
+
+         require('telescope').load_extension('fzf')
 
          -- Enable extensions
          -- pcall(require('telescope').load_extension 'fzf')
