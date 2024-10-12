@@ -74,6 +74,16 @@ return {
                },
             },
          }) -- this is equalent to setup({}) function
+
+         require 'nvim-treesitter.parsers'.get_parser_configs().dbt = {
+            install_info = {
+               url = "https://github.com/dbt-labs/tree-sitter-jinja2",
+               files = { "src/parser.c" },
+               branch = "main",
+            },
+            filetype = "sql",
+         }
+
       end
    },
    'nvim-treesitter/playground',
