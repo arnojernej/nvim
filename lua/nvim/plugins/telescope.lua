@@ -1,6 +1,6 @@
 return {
 
-   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+   -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
 
    {
       'nvim-telescope/telescope.nvim',
@@ -23,7 +23,7 @@ return {
             defaults = {
 
                layout_config = {
-                  width = 0.99,
+                  width = 0.9999,
                   height = 0.9,
                   preview_cutoff = 120,
                   horizontal = {
@@ -70,7 +70,7 @@ return {
             },
          }
 
-         require('telescope').load_extension('fzf')
+         -- require('telescope').load_extension('fzf')
 
          -- Enable extensions
          -- pcall(require('telescope').load_extension 'fzf')
