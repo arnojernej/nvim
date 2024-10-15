@@ -8,8 +8,8 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- disable for nvimtree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 vim.o.hlsearch = true
 vim.wo.number = true
@@ -52,3 +52,18 @@ vim.opt.statuscolumn = "%=%l %s"
 vim.opt.modeline = true
 
 vim.cmd("language en_US")
+
+if vim.fn.has("wsl") == 1 then
+    vim.g.clipboard = {
+        name = 'win32yank-wsl',
+        copy = {
+            ['+'] = '/mnt/c/2_PROGS/win32yank.exe -i --crlf',
+            ['*'] = '/mnt/c/2_PROGS/win32yank.exe -i --crlf',
+        },
+        paste = {
+            ['+'] = '/mnt/c/2_PROGS/win32yank.exe -o --lf',
+            ['*'] = '/mnt/c/2_PROGS/win32yank.exe -o --lf',
+        },
+        cache_enabled = 0,
+    }
+end
