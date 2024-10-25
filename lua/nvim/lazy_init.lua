@@ -15,4 +15,7 @@ require("lazy").setup({
    spec = "nvim.plugins",
    change_detection = { notify = false },
    install = { colorscheme = { "juliana" } },
+   ui = {
+      border = "rounded",
+   },
 })
