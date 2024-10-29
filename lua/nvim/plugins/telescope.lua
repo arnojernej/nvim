@@ -14,13 +14,16 @@ return {
 
          require('telescope').setup {
 
-            -- pickers = {
-            --    oldfiles = {
-            --       cwd_only = true,
-            --    }
-            -- },
+            pickers = {
+               oldfiles = {
+                  cwd_only = true,
+               }
+            },
 
             defaults = {
+               show_line = false,
+
+               path_display = { "truncate" },  -- Truncate long file paths
 
                layout_config = {
                   width = 0.9999,
@@ -33,8 +36,6 @@ return {
                      preview_height = 0.5,
                   },
                },
-
-               path_display = { "truncate" },  -- Truncate long file paths
 
                mappings = {
                   i = {
@@ -57,9 +58,6 @@ return {
                      ['<C-u>'] = false,
                      ['<C-d>'] = false,
                   },
-               },
-               preview = {
-                  -- hide_on_startup = true
                },
                file_ignore_patterns = {
                   "venv",

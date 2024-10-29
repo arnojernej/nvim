@@ -70,8 +70,8 @@ vim.keymap.set('n', '<F13>', ':%foldc<cr>', { silent = true })
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.local/scripts/tmux-sessionizer<CR>")
 
-vim.keymap.set('n', '<C-k>', '{', { silent = false })
-vim.keymap.set('n', '<C-j>', '}', { silent = false })
+vim.keymap.set('n', '<C-p>', '{', { silent = false })
+vim.keymap.set('n', '<C-n>', '}', { silent = false })
 
 -- local group = vim.api.nvim_create_augroup("markdown_autocommands", { clear = true })
 -- vim.api.nvim_create_autocmd("BufEnter", {
