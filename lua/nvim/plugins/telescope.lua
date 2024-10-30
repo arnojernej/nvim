@@ -15,6 +15,11 @@ return {
          require('telescope').setup {
 
             pickers = {
+               git_branches = {
+                  mappings = {
+                     i = { ["<cr>"] = actions.git_switch_branch },
+                  },
+               },
                oldfiles = {
                   cwd_only = true,
                }
@@ -23,7 +28,7 @@ return {
             defaults = {
                show_line = false,
 
-               path_display = { "truncate" },  -- Truncate long file paths
+               path_display = { "truncate" }, -- Truncate long file paths
 
                layout_config = {
                   width = 0.9999,
