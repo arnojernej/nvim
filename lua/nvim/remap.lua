@@ -73,6 +73,8 @@ vim.keymap.set("n", "<C-g>", "<cmd>silent !tmux neww ~/.local/scripts/tmux-sessi
 vim.keymap.set('n', '<C-p>', '{', { silent = false })
 vim.keymap.set('n', '<C-n>', '}', { silent = false })
 
+vim.keymap.set('n', '<C-f>', '<nop>', { silent = true })
+
 -- local group = vim.api.nvim_create_augroup("markdown_autocommands", { clear = true })
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = "*",
