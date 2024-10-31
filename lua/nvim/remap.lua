@@ -68,7 +68,7 @@ end
 vim.keymap.set('n', '<F13>', ':%foldc<cr>', { silent = true })
 
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww ~/.local/scripts/tmux-sessionizer<CR>")
+vim.keymap.set("n", "<C-g>", "<cmd>silent !tmux neww ~/.local/scripts/tmux-sessionizer<CR>")
 
 vim.keymap.set('n', '<C-p>', '{', { silent = false })
 vim.keymap.set('n', '<C-n>', '}', { silent = false })
