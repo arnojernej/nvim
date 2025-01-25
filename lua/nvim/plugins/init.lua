@@ -1,7 +1,5 @@
 return {
 
-   'github/copilot.vim',
-
    'tpope/vim-sleuth',
    'tpope/vim-repeat',
    'tpope/vim-surround',
@@ -10,13 +8,21 @@ return {
    'mtdl9/vim-log-highlighting',
 
    -- {
-   --    'irblade/vim-rooter',
-   --    config = function()
-   --       vim.g.rooter_silent_chdir = 1
-   --       vim.g.rooter_resolve_links = 1
-   --       vim.g.rooter_patterns = {'.git', '*.sln'}
-   --       vim.g.rooter_change_directory_for_non_project_files = 'current'
-   --    end
+   --    'kristijanhusak/vim-dadbod-ui',
+   --    dependencies = {
+   --       { 'tpope/vim-dadbod', lazy = true },
+   --       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql' }, lazy = true },
+   --    },
+   --    cmd = {
+   --       'DBUI',
+   --       'DBUIToggle',
+   --       'DBUIAddConnection',
+   --       'DBUIFindBuffer',
+   --    },
+   --    init = function()
+   --       -- Your DBUI configuration
+   --       vim.g.db_ui_use_nerd_fonts = 1
+   --    end,
    -- },
 
    {

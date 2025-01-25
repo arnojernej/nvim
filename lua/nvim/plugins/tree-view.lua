@@ -31,7 +31,8 @@ return {
       },
       on_attach = my_on_attach,
       filters = {
-        dotfiles = false,  -- if you want to show dotfiles, set this to true
+        git_ignored = false,
+        dotfiles = false,
         custom = {
           '.git',
           'node_modules',
