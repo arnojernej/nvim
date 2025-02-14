@@ -83,8 +83,8 @@ return {
       'petertriho/nvim-scrollbar',
       opts = {
          handle = {
-            -- color = '#4c566a',
-            color = '#3f4750',
+            -- color ='#444e59',
+            color = '#4c566a',
          },
          handlers = {
             cursor = false,
