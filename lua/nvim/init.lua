@@ -5,7 +5,7 @@ end
 require("nvim.set")
 require("nvim.remap")
 require("nvim.lazy_init")
-require("nvim.snips")
+-- require("nvim.snips")
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, { pattern = "*", command = [[%s/\s\+$//e]], })
 
