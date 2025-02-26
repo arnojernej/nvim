@@ -46,6 +46,7 @@ return {
           '.mypy_cache',
           '.tox',
           '.next',
+          '!.gitlab-ci.yml'
         },
       },
 
