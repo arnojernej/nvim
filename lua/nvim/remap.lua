@@ -55,9 +55,6 @@ vim.cmd([[
 vim.keymap.set('x', '<tab>', '>gv', { silent = true })
 vim.keymap.set('x', '<s-tab>', '<gv', { silent = true })
 
--- Extract mails
-vim.keymap.set('n', '<leader>x', 'V:s/; /;\\r/g<cr>^MggVG:sort<cr>', { silent = true })
-
 if vim.fn.has("win32") == 1 then
   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
 else
