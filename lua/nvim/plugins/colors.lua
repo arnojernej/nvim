@@ -27,7 +27,6 @@ function ColorMyPencils(color)
    vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = "#95b2d6" })
    vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { fg = "#fac761" })
 
-
    vim.api.nvim_set_hl(0, 'LspReferenceText', { bg = '#3b4252', underline = true })
    vim.api.nvim_set_hl(0, 'LspReferenceRead', { bg = '#3b4252', underline = true })
    vim.api.nvim_set_hl(0, 'LspReferenceWrite', { bg = '#3b4252', underline = true })
@@ -41,6 +40,7 @@ function ColorMyPencils(color)
    vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#c695c6"}) -- lightblue
    vim.api.nvim_set_hl(0, "@punctuation.delimiter", { fg = "#c695c6"}) -- lightblue
    vim.api.nvim_set_hl(0, "@type", { fg = "#81a1c1"}) -- blue
+   vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { link = "Conceal" })
 
 end
 
