@@ -243,7 +243,7 @@ return {
     end,
   },
 
-  {
+  { -- complete window
     'saghen/blink.cmp',
 
     -- use a release tag to download pre-built binaries
@@ -316,6 +316,20 @@ return {
       fuzzy = { implementation = "prefer_rust_with_warning" }
     },
     opts_extend = { "sources.default" }
-  }
+  },
+
+  { -- this will update imports after renaming of files
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- Uncomment whichever supported plugin(s) you use
+      "nvim-tree/nvim-tree.lua",
+      -- "nvim-neo-tree/neo-tree.nvim",
+      -- "simonmclean/triptych.nvim"
+    },
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
+  },
 
 }
