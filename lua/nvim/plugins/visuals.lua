@@ -80,19 +80,8 @@ return {
    },
 
    {
-      'petertriho/nvim-scrollbar',
-      opts = {
-         handle = {
-            -- color ='#444e59',
-            color = '#4c566a',
-         },
-         handlers = {
-            cursor = false,
-            diagnostic = true,
-            gitsigns = true, -- Requires gitsigns
-            handle = true,
-         },
-      },
+      'dstein64/nvim-scrollview',
+      opts ={}
    },
 
    {
