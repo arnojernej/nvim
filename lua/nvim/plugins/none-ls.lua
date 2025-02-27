@@ -1,9 +1,8 @@
 return {
    {
-      'nvimtools/none-ls.nvim',
+      "nvimtools/none-ls.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
-
          local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
          local null_ls = require("null-ls")
 
@@ -15,7 +14,8 @@ return {
                null_ls.builtins.formatting.black.with({
                   -- extra_args = { "--line-length=120" }
                }),
-               --null_ls.builtins.formatting.isort,
+               null_ls.builtins.formatting.isort,
+               null_ls.builtins.formatting.stylua,
             },
 
             on_attach = function(client, bufnr)
@@ -33,10 +33,7 @@ return {
                   })
                end
             end,
-
          })
-
-      end
-
+      end,
    },
 }

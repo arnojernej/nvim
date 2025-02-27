@@ -1,11 +1,11 @@
 return {
 
-   'tpope/vim-sleuth',
-   'tpope/vim-repeat',
-   'tpope/vim-surround',
+   "tpope/vim-sleuth",
+   "tpope/vim-repeat",
+   "tpope/vim-surround",
    -- 'tpope/vim-rhubarb',
 
-   'mtdl9/vim-log-highlighting',
+   "mtdl9/vim-log-highlighting",
 
    -- {
    --    'kristijanhusak/vim-dadbod-ui',
@@ -26,21 +26,21 @@ return {
    -- },
 
    {
-      'ethanholz/nvim-lastplace',
-      opts={
-         lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
-         lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
-         lastplace_open_folds = true
-      }
+      "ethanholz/nvim-lastplace",
+      opts = {
+         lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+         lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+         lastplace_open_folds = true,
+      },
    },
 
    {
-      'windwp/nvim-autopairs',
+      "windwp/nvim-autopairs",
       event = "InsertEnter",
-      opts = {} -- this is equalent to setup({}) function
+      opts = {}, -- this is equalent to setup({}) function
    },
 
-   { 'windwp/nvim-ts-autotag', opts = {} },
+   { "windwp/nvim-ts-autotag", opts = {} },
 
    {
       "folke/ts-comments.nvim",
@@ -48,6 +48,4 @@ return {
       event = "VeryLazy",
       enabled = vim.fn.has("nvim-0.10.0") == 1,
    },
-
-
 }
