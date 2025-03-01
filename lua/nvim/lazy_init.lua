@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-   spec = "nvim.plugins",
+   spec = "nvim.lazy",
    change_detection = { notify = false },
    install = { colorscheme = { "juliana" } },
    ui = {
