@@ -45,6 +45,8 @@ function RunPythonInSplit()
         -- Defer sending the command so the shell has time to initialize.
         vim.defer_fn(function()
             vim.fn.chansend(term_job_id, 'python ' .. vim.fn.expand '%:p' .. '\n')
+            local last_line = vim.api.nvim_buf_line_count(term_buf)
+            vim.api.nvim_win_set_cursor(term_win, { last_line, 0 })
         end, 100)
         vim.api.nvim_set_current_win(cur_win)
     end
