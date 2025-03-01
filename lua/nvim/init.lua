@@ -1,5 +1,5 @@
 if vim.fn.has 'win32' == 1 then
-  vim.opt.shadafile = 'C:/Temp/shada'
+   vim.opt.shadafile = 'C:/Temp/shada'
 end
 
 require 'nvim.set'

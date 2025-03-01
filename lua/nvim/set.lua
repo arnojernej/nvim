@@ -1,5 +1,5 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 vim.g.timeoutlen = 1500
 
 vim.opt.tabstop = 4
@@ -13,8 +13,8 @@ vim.opt.expandtab = true
 
 vim.o.hlsearch = true
 vim.wo.number = true
-vim.o.mouse = "a"
-vim.o.clipboard = "unnamedplus"
+vim.o.mouse = 'a'
+vim.o.clipboard = 'unnamedplus'
 vim.o.breakindent = true
 
 vim.o.wrap = false
@@ -27,7 +27,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = "yes"
+vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 -- vim.o.updatetime = 50
@@ -35,7 +35,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -44,11 +44,11 @@ vim.o.termguicolors = true
 vim.o.scrolloff = 2
 vim.o.sidescrolloff = 3
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = '80'
 vim.opt.pumheight = 10
 
-vim.opt.statuscolumn = "%=%l %s"
+vim.opt.statuscolumn = '%=%l %s'
 
 vim.opt.modeline = true
 
-vim.cmd("language en_US")
+vim.cmd 'language en_US'

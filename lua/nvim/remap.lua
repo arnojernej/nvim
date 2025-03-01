@@ -19,10 +19,10 @@ vim.keymap.set('x', '<enter>', '<esc>:w<cr>', { silent = true })
 
 -- Remap Enter in Quickfix window to open the selected entry, again
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'qf',
-  callback = function()
-    vim.api.nvim_buf_set_keymap(0, 'n', '<CR>', '<CR>', { noremap = true, silent = true })
-  end,
+   pattern = 'qf',
+   callback = function()
+      vim.api.nvim_buf_set_keymap(0, 'n', '<CR>', '<CR>', { noremap = true, silent = true })
+   end,
 })
 
 -- Quickfix jumping
@@ -55,9 +55,9 @@ vim.keymap.set('x', '<tab>', '>gv', { silent = true })
 vim.keymap.set('x', '<s-tab>', '<gv', { silent = true })
 
 if vim.fn.has 'win32' == 1 then
-  vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
+   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
 else
-  vim.keymap.set('v', '<leader>s', ':%!sqlfmt - 2>/dev/null<cr>', { silent = true })
+   vim.keymap.set('v', '<leader>s', ':%!sqlfmt - 2>/dev/null<cr>', { silent = true })
 end
 
 vim.keymap.set('n', '<C-g>', '<cmd>silent !tmux neww ~/.local/scripts/tmux-sessionizer<CR>')
