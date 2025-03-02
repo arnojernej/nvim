@@ -44,11 +44,11 @@ vim.o.termguicolors = true
 vim.o.scrolloff = 2
 vim.o.sidescrolloff = 3
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = '80'
 vim.opt.pumheight = 10
 
-vim.opt.statuscolumn = "%=%l %s"
+vim.opt.statuscolumn = '%=%l %s'
 
 vim.opt.modeline = true
 
-vim.cmd("language en_US")
+vim.cmd 'language en_US'

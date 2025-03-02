@@ -1,1 +1,1 @@
-vim.keymap.set('n', '<leader>x', '')
+vim.keymap.set("n", "<leader>x", "")
