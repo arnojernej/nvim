@@ -12,12 +12,14 @@ return {
          -- Useful status updates for LSP.
          {
             'j-hui/fidget.nvim',
-            tag = 'legacy',
-            opts = { window = { blend = 0 } },
+            opts = {
+               progress = { display = { done_style = 'Normal' } },
+               notification = { window = { winblend = 0, normal_hl = 'Comment' } },
+            },
          },
 
          -- Allows extra capabilities provided by nvim-cmp
-         'saghen/blink.cmp',
+         'hrsh7th/cmp-nvim-lsp',
       },
       config = function()
          -- Brief aside: **What is LSP?**
@@ -95,6 +97,7 @@ return {
                map('R', vim.lsp.buf.rename, '[R]e[n]ame')
 
                map('<leader>i', vim.lsp.buf.hover, 'Hover Documentation')
+               map('<leader>d', vim.diagnostic.open_float, 'Hover Diagnostic')
 
                -- Execute a code action, usually your cursor needs to be on top of an error
                -- or a suggestion from your LSP for this to activate.
@@ -150,7 +153,7 @@ return {
          --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
          --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
          local capabilities = vim.lsp.protocol.make_client_capabilities()
-         capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
+         capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
          -- Enable the following language servers
          --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -239,82 +242,164 @@ return {
       end,
    },
 
-   { -- complete window
-      'saghen/blink.cmp',
-
-      -- use a release tag to download pre-built binaries
-      version = '*',
-      -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-      -- build = 'cargo build --release',
-      -- If you use nix, you can build from source using latest nightly rust with:
-      -- build = 'nix run .#build-plugin',
-
-      ---@module 'blink.cmp'
-      ---@type blink.cmp.Config
-      opts = {
-         -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept, C-n/C-p for up/down)
-         -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys for up/down)
-         -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-         --
-         -- All presets have the following mappings:
-         -- C-space: Open menu or open docs if already open
-         -- C-e: Hide menu
-         -- C-k: Toggle signature help
-         --
-         -- See the full "keymap" documentation for information on defining your own keymap.
-         keymap = { preset = 'enter' },
-
-         completion = {
-            documentation = { auto_show = true, window = { border = 'rounded' } },
-            menu = {
-               draw = {
-                  treesitter = { 'lsp' },
-                  columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } },
+   { -- Autocompletion
+      'hrsh7th/nvim-cmp',
+      event = 'InsertEnter',
+      dependencies = {
+         -- Snippet Engine & its associated nvim-cmp source
+         {
+            'L3MON4D3/LuaSnip',
+            build = (function()
+               -- Build Step is needed for regex support in snippets.
+               -- This step is not supported in many windows environments.
+               -- Remove the below condition to re-enable on windows.
+               if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+                  return
+               end
+               return 'make install_jsregexp'
+            end)(),
+            dependencies = {
+               -- `friendly-snippets` contains a variety of premade snippets.
+               --    See the README about individual language/framework/plugin snippets:
+               --    https://github.com/rafamadriz/friendly-snippets
+               {
+                  'rafamadriz/friendly-snippets',
+                  config = function()
+                     require('luasnip.loaders.from_vscode').lazy_load()
+                     require('luasnip').filetype_extend('typescriptreact', { 'tsdoc' })
+                     require('luasnip').filetype_extend('typescript', { 'tsdoc' })
+                  end,
                },
             },
          },
+         'saadparwaiz1/cmp_luasnip',
 
-         appearance = {
-            -- Sets the fallback highlight groups to nvim-cmp's highlight groups
-            -- Useful for when your theme doesn't support blink.cmp
-            -- Will be removed in a future release
-            use_nvim_cmp_as_default = true,
-            -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- Adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'mono',
-         },
+         -- Adds other completion capabilities.
+         --  nvim-cmp does not ship with all sources by default. They are split
+         --  into multiple repos for maintenance purposes.
+         'hrsh7th/cmp-nvim-lsp',
+         'hrsh7th/cmp-path',
+         'hrsh7th/cmp-buffer',
 
-         -- Default list of enabled providers defined so that you can extend it
-         -- elsewhere in your config, without redefining it, due to `opts_extend`
-         sources = {
-            default = { 'lsp', 'path', 'buffer' },
-            providers = {
-               buffer = {
-                  opts = {
-                     -- get all buffers, even ones like neo-tree
-                     -- get_bufnrs = vim.api.nvim_list_bufs
-                     -- or (recommended) filter to only "normal" buffers
+         -- Adds icons to the completion menu
+         'onsails/lspkind.nvim',
+      },
+      config = function()
+         -- See `:help cmp`
+         local cmp = require 'cmp'
+         local luasnip = require 'luasnip'
+         luasnip.config.setup {}
+
+         local lspkind = require 'lspkind'
+
+         cmp.setup {
+
+            -- JERNEJAR: style completion windows
+            window = {
+               -- completion = cmp.config.window.bordered(), -- Adds border to the completion window
+               documentation = cmp.config.window.bordered(), -- Adds border to the documentation window
+            },
+
+            snippet = {
+               expand = function(args)
+                  luasnip.lsp_expand(args.body)
+               end,
+            },
+            completion = { completeopt = 'menu,menuone,noinsert' },
+
+            -- For an understanding of why these mappings were
+            -- chosen, you will need to read `:help ins-completion`
+            --
+            -- No, but seriously. Please read `:help ins-completion`, it is really good!
+            mapping = cmp.mapping.preset.insert {
+               -- Select the [n]ext item
+               ['<C-n>'] = cmp.mapping.select_next_item(),
+               -- Select the [p]revious item
+               ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+               -- Scroll the documentation window [b]ack / [f]orward
+               ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+               ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+               -- Accept ([y]es) the completion.
+               --  This will auto-import if your LSP supports it.
+               --  This will expand snippets if the LSP sent a snippet.
+               ['<CR>'] = cmp.mapping.confirm { select = true },
+
+               -- Think of <c-l> as moving to the right of your snippet expansion.
+               --  So if you have a snippet that's like:
+               --  function $name($args)
+               --    $body
+               --  end
+               --
+               -- <c-l> will move you to the right of each of the expansion locations.
+               -- <c-h> is similar, except moving you backwards.
+               ['<C-l>'] = cmp.mapping(function()
+                  if luasnip.expand_or_locally_jumpable() then
+                     luasnip.expand_or_jump()
+                  end
+               end, { 'i', 's' }),
+               ['<C-h>'] = cmp.mapping(function()
+                  if luasnip.locally_jumpable(-1) then
+                     luasnip.jump(-1)
+                  end
+               end, { 'i', 's' }),
+
+               -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+               --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+            },
+            sources = {
+               {
+                  name = 'lazydev',
+                  -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+                  group_index = 0,
+               },
+               { name = 'nvim_lsp' },
+               { name = 'luasnip' },
+               { name = 'path' },
+               {
+                  name = 'buffer',
+                  option = {
                      get_bufnrs = function()
-                        return vim.tbl_filter(function(bufnr)
-                           return vim.bo[bufnr].buftype == ''
-                        end, vim.api.nvim_list_bufs())
+                        return vim.api.nvim_list_bufs()
                      end,
                   },
                },
             },
-         },
 
-         -- Blink.cmp uses a Rust fuzzy matcher by default for typo resistance and significantly better performance
-         -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-         -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-         --
-         -- See the fuzzy documentation for more information
-         fuzzy = { implementation = 'prefer_rust_with_warning' },
-      },
-      opts_extend = { 'sources.default' },
+            formatting = {
+               format = function(entry, vim_item)
+                  -- Set the kind icons and display both the kind and the source
+                  vim_item.kind = string.format('%s %s', lspkind.presets.default[vim_item.kind], vim_item.kind)
+
+                  -- Set the source name (e.g., "LSP", "Buffer", "Snip")
+                  vim_item.menu = ({
+                     nvim_lsp = '[LSP]',
+                     luasnip = '[Snippet]',
+                     buffer = '[Buffer]',
+                     path = '[Path]',
+                  })[entry.source.name]
+
+                  return vim_item
+               end,
+            },
+         }
+
+         vim.diagnostic.config {
+            -- update_in_insert = true,
+            float = {
+               focusable = false,
+               style = 'minimal',
+               border = 'rounded',
+               source = 'always',
+               header = '',
+               prefix = '',
+            },
+         }
+      end,
    },
 
-   { -- this will update imports after renaming of files
+   {
       'antosha417/nvim-lsp-file-operations',
       dependencies = {
          'nvim-lua/plenary.nvim',
@@ -325,6 +410,98 @@ return {
       },
       config = function()
          require('lsp-file-operations').setup()
+      end,
+   },
+
+   {
+      'xzbdmw/colorful-menu.nvim',
+      config = function()
+         -- You don't need to set these options.
+         require('colorful-menu').setup {
+            ls = {
+               lua_ls = {
+                  -- Maybe you want to dim arguments a bit.
+                  arguments_hl = '@comment',
+               },
+               gopls = {
+                  -- By default, we render variable/function's type in the right most side,
+                  -- to make them not to crowd together with the original label.
+
+                  -- when true:
+                  -- foo             *Foo
+                  -- ast         "go/ast"
+
+                  -- when false:
+                  -- foo *Foo
+                  -- ast "go/ast"
+                  align_type_to_right = true,
+                  -- When true, label for field and variable will format like "foo: Foo"
+                  -- instead of go's original syntax "foo Foo". If align_type_to_right is
+                  -- true, this option has no effect.
+                  add_colon_before_type = false,
+                  -- See https://github.com/xzbdmw/colorful-menu.nvim/pull/36
+                  preserve_type_when_truncate = true,
+               },
+               -- for lsp_config or typescript-tools
+               ts_ls = {
+                  -- false means do not include any extra info,
+                  -- see https://github.com/xzbdmw/colorful-menu.nvim/issues/42
+                  extra_info_hl = '@comment',
+               },
+               vtsls = {
+                  -- false means do not include any extra info,
+                  -- see https://github.com/xzbdmw/colorful-menu.nvim/issues/42
+                  extra_info_hl = '@comment',
+               },
+               ['rust-analyzer'] = {
+                  -- Such as (as Iterator), (use std::io).
+                  extra_info_hl = '@comment',
+                  -- Similar to the same setting of gopls.
+                  align_type_to_right = true,
+                  -- See https://github.com/xzbdmw/colorful-menu.nvim/pull/36
+                  preserve_type_when_truncate = true,
+               },
+               clangd = {
+                  -- Such as "From <stdio.h>".
+                  extra_info_hl = '@comment',
+                  -- Similar to the same setting of gopls.
+                  align_type_to_right = true,
+                  -- the hl group of leading dot of "•std::filesystem::permissions(..)"
+                  import_dot_hl = '@comment',
+                  -- See https://github.com/xzbdmw/colorful-menu.nvim/pull/36
+                  preserve_type_when_truncate = true,
+               },
+               zls = {
+                  -- Similar to the same setting of gopls.
+                  align_type_to_right = true,
+               },
+               roslyn = {
+                  extra_info_hl = '@comment',
+               },
+               dartls = {
+                  extra_info_hl = '@comment',
+               },
+               -- The same applies to pyright/pylance
+               basedpyright = {
+                  -- It is usually import path such as "os"
+                  extra_info_hl = '@comment',
+               },
+               -- If true, try to highlight "not supported" languages.
+               fallback = true,
+               -- this will be applied to label description for unsupport languages
+               fallback_extra_info_hl = '@comment',
+            },
+            -- If the built-in logic fails to find a suitable highlight group for a label,
+            -- this highlight is applied to the label.
+            fallback_highlight = '@variable',
+            -- If provided, the plugin truncates the final displayed text to
+            -- this width (measured in display cells). Any highlights that extend
+            -- beyond the truncation point are ignored. When set to a float
+            -- between 0 and 1, it'll be treated as percentage of the width of
+            -- the window: math.floor(max_width * vim.api.nvim_win_get_width(0))
+            -- Default 60.
+            max_width = 60,
+         }
       end,
    },
 }
