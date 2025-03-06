@@ -284,6 +284,7 @@ return {
          -- Adds icons to the completion menu
          'onsails/lspkind.nvim',
       },
+
       config = function()
          -- See `:help cmp`
          local cmp = require 'cmp'
@@ -293,12 +294,6 @@ return {
          local lspkind = require 'lspkind'
 
          cmp.setup {
-
-            -- JERNEJAR: style completion windows
-            window = {
-               -- completion = cmp.config.window.bordered(), -- Adds border to the completion window
-               documentation = cmp.config.window.bordered(), -- Adds border to the documentation window
-            },
 
             snippet = {
                expand = function(args)
@@ -367,22 +362,55 @@ return {
                },
             },
 
-            formatting = {
-               format = function(entry, vim_item)
-                  -- Set the kind icons and display both the kind and the source
-                  vim_item.kind = string.format('%s %s', lspkind.presets.default[vim_item.kind], vim_item.kind)
+            window = {
+               documentation = cmp.config.window.bordered(), -- Adds border to the documentation window
+               completion = {
+                  winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,Search:None',
+                  col_offset = -1,
+                  side_padding = 0,
+               },
+            },
 
-                  -- Set the source name (e.g., "LSP", "Buffer", "Snip")
-                  vim_item.menu = ({
-                     nvim_lsp = '[LSP]',
-                     luasnip = '[Snippet]',
-                     buffer = '[Buffer]',
-                     path = '[Path]',
-                  })[entry.source.name]
+            formatting = {
+               fields = { 'kind', 'abbr', 'menu' },
+
+               format = function(entry, vim_item)
+                  local kind = require('lspkind').cmp_format {
+                     mode = 'symbol_text',
+                  } (entry, vim.deepcopy(vim_item))
+                  local highlights_info = require('colorful-menu').cmp_highlights(entry)
+
+                  -- highlight_info is nil means we are missing the ts parser, it's
+                  -- better to fallback to use default `vim_item.abbr`. What this plugin
+                  -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+                  if highlights_info ~= nil then
+                     vim_item.abbr_hl_group = highlights_info.highlights
+                     vim_item.abbr = highlights_info.text
+                  end
+                  local strings = vim.split(kind.kind, '%s', { trimempty = true })
+                  vim_item.kind = '' .. (strings[1] or '') .. ''
+                  vim_item.menu = ''
 
                   return vim_item
                end,
             },
+
+            -- formatting = {
+            --    format = function(entry, vim_item)
+            --       -- Set the kind icons and display both the kind and the source
+            --       vim_item.kind = string.format('%s %s', lspkind.presets.default[vim_item.kind], vim_item.kind)
+            --
+            --       -- Set the source name (e.g., "LSP", "Buffer", "Snip")
+            --       vim_item.menu = ({
+            --          nvim_lsp = '[LSP]',
+            --          luasnip = '[Snippet]',
+            --          buffer = '[Buffer]',
+            --          path = '[Path]',
+            --       })[entry.source.name]
+            --
+            --       return vim_item
+            --    end,
+            -- },
          }
 
          vim.diagnostic.config {
