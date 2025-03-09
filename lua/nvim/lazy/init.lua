@@ -1,8 +1,8 @@
 return {
 
    'tpope/vim-sleuth',
-   -- "tpope/vim-repeat",
-   -- "tpope/vim-surround",
+   'tpope/vim-repeat',
+   'tpope/vim-surround',
    -- 'tpope/vim-rhubarb',
 
    'mtdl9/vim-log-highlighting',
