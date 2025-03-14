@@ -5,7 +5,10 @@ return {
    {
       'nvim-telescope/telescope.nvim',
       branch = '0.1.x',
-      dependencies = { 'nvim-lua/plenary.nvim' },
+      dependencies = {
+         'nvim-lua/plenary.nvim',
+         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+      },
       config = function()
          local builtin = require 'telescope.builtin'
          local actions = require 'telescope.actions'
@@ -72,7 +75,7 @@ return {
             },
          }
 
-         -- require('telescope').load_extension('fzf')
+         require('telescope').load_extension 'fzf'
 
          -- Enable extensions
          -- pcall(require('telescope').load_extension 'fzf')
