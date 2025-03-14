@@ -292,7 +292,9 @@ return {
          sources = {
             default = { 'lsp', 'path', 'buffer' },
             providers = {
+               lsp = { fallbacks = {} },
                buffer = {
+                  score_offset = -10,
                   opts = {
                      -- get all buffers, even ones like neo-tree
                      -- get_bufnrs = vim.api.nvim_list_bufs
