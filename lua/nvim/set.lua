@@ -55,6 +55,7 @@ vim.cmd 'language en_US'
 
 vim.cmd [[
 
+set noswf
 set foldmethod=marker
 
 augroup remember_folds
