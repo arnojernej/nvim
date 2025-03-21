@@ -52,6 +52,6 @@ function RunPythonInSplit()
    end
 end
 
--- vim.keymap.set('n', '<leader>x', ':w<cr>:term python3 %<cr>', { silent = false })
-vim.keymap.set('n', '<leader>x', ':w<cr>:! python3 %<cr>', { silent = false })
+vim.keymap.set('n', '<leader>x', ':w<cr>:term python3 %<cr>', { silent = false })
+-- vim.keymap.set('n', '<leader>x', ':w<cr>:! python3 %<cr>', { silent = false })
 -- vim.api.nvim_set_keymap('n', '<leader>x', ':w<CR>:lua RunPythonInSplit()<CR>', { noremap = true, silent = true })
