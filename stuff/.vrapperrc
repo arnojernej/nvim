@@ -1,0 +1,12 @@
+imap <tab> <enter><bs>
+nmap <esc> :nohlsearch<cr>
+nmap <enter> :w<cr>
+nmap * *N
+
+set clipboard=unnamedplus
+
+set ignorecase
+set smartcase
+
+set hlsearch
+set incsearch
