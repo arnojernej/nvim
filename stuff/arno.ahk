@@ -127,11 +127,11 @@ Lwin & Tab::AltTab
 ; Map Alt + N to \
 +!7::SendInput {\}
 
-; Map Alt + N to Â©
-!g::SendInput {Â©}
+; Map Alt + N to ©
+!g::SendInput {©}
 
-; Map Alt + o to Ã¸
-!o::SendInput {Ã¸}
+; Map Alt + o to ø
+!o::SendInput {ø}
 
 ; Map Alt + 5 to [
 !5::SendInput {[}
@@ -139,11 +139,8 @@ Lwin & Tab::AltTab
 ; Map Alt + 6 to ]
 !6::SendInput {]}
 
-; Map Alt + E to â‚¬
-!e::SendInput {â‚¬}
-
-; Map Alt + - to â€“
-!-::SendInput {â€“}
+; Map Alt + - to ¿
+!-::SendInput {¿}
 
 ; Map Alt + 8 to {
 !8::SendInput {{}
@@ -151,17 +148,17 @@ Lwin & Tab::AltTab
 ; Map Alt + 9 to }
 !9::SendInput {}}
 
-; Map Alt + - to Â±
-!+::SendInput {Â±}
+; Map Alt + - to ±
+!+::SendInput {±}
 
-; Map Alt + R to Â®
-!r::SendInput {Â®}
+; Map Alt + R to ®
+!r::SendInput {®}
 
 ; Map Alt + N to |
 !7::SendInput {|}
 
-; Map Alt + W to âˆ‘
-!w::SendInput {âˆ‘}
+; Map Alt + W to ¿
+!w::SendInput {¿}
 
 ; Map Alt + N to ~
 !n::SendInput {~}
@@ -175,12 +172,18 @@ Lwin & Tab::AltTab
 ; Custom mappings for special chars
 ; --------------------------------------------------------------
 
-;#Ã¶::SendInput {[}
-;#Ã¤::SendInput {]}
+;#ö::SendInput {[}
+;#ä::SendInput {]}
 
-;^Ã¶::SendInput {{}
-;^Ã¤::SendInput {}}
+;^ö::SendInput {{}
+;^ä::SendInput {}}
 
+RAlt & o::Send ö
+RAlt & u::Send ü
+RAlt & a::Send ä
+; RAlt & +o::Send Ö
+; RAlt & +u::Send Ü
+; RAlt & +a::Send Ä
 
 #1::Send !1
 #2::Send !2
