@@ -66,4 +66,4 @@ augroup END
 
 ]]
 vim.opt.fillchars:append { fold = ' ' }
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config { virtual_text = true }

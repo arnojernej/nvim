@@ -74,4 +74,7 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', { silent = true })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
 
 -- Toggle fold
-vim.keymap.set('n', '<space>', 'za', { silent = true })
+-- vim.keymap.set('n', '<space>', 'za', { silent = true })
+
+vim.keymap.set('', '<ScrollWheelLeft>', 'zl', { noremap = true, silent = true })
+vim.keymap.set('', '<ScrollWheelRight>', 'zh', { noremap = true, silent = true })

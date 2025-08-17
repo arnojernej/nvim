@@ -268,14 +268,17 @@ return {
          keymap = { preset = 'enter' },
 
          completion = {
+            keyword = { range = 'full' },
             documentation = { auto_show = true, window = { border = 'rounded' } },
             menu = {
+               -- border = 'rounded',
                draw = {
                   treesitter = { 'lsp' },
                   columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } },
                },
             },
          },
+         signature = { window = { border = 'rounded' } },
 
          appearance = {
             -- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -297,13 +300,13 @@ return {
                   score_offset = -10,
                   opts = {
                      -- get all buffers, even ones like neo-tree
-                     -- get_bufnrs = vim.api.nvim_list_bufs
+                     get_bufnrs = vim.api.nvim_list_bufs,
                      -- or (recommended) filter to only "normal" buffers
-                     get_bufnrs = function()
-                        return vim.tbl_filter(function(bufnr)
-                           return vim.bo[bufnr].buftype == ''
-                        end, vim.api.nvim_list_bufs())
-                     end,
+                     -- get_bufnrs = function()
+                     --    return vim.tbl_filter(function(bufnr)
+                     --       return vim.bo[bufnr].buftype == ''
+                     --    end, vim.api.nvim_list_bufs())
+                     -- end,
                   },
                },
             },
