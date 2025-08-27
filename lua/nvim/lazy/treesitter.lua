@@ -4,20 +4,6 @@ return {
       'nvim-treesitter/nvim-treesitter',
       dependencies = {
          'nvim-treesitter/nvim-treesitter-textobjects',
-         {
-            'MeanderingProgrammer/render-markdown.nvim',
-            ft = { 'markdown', 'codecompanion' },
-         },
-         {
-            'OXY2DEV/markview.nvim',
-            lazy = false,
-            opts = {
-               preview = {
-                  filetypes = { 'markdown', 'codecompanion' },
-                  ignore_buftypes = {},
-               },
-            },
-         },
       },
       build = ':TSUpdate',
       opts = {

@@ -39,11 +39,19 @@ vim.keymap.set('n', '<leader>b', ':b#<cr>', { silent = true })
 vim.keymap.set('n', 'K', function()
    local filetype = vim.bo.filetype
 
-   if filetype == 'codecompanion' then
-      -- Custom behavior for buffers with 'special_file' in name
-      vim.cmd 'CodeCompanionChat Toggle'
+   if string.sub(filetype, 1, 6) == 'Avante' then
+      -- Custom behavior for buffers with filetype beginning with 'Avante'
+      vim.cmd 'AvanteToggle'
    else
       -- Default behavior
+      local sidebar = require('avante').get()
+      if sidebar:is_open() then
+         sidebar.close(sidebar)
+         -- local sid = sidebar.get_current_sidebar()
+         -- if sid then
+         --    sidebar.close(sid)
+         -- end
+      end
       vim.cmd 'bd'
    end
 end, { silent = true })
@@ -90,5 +98,3 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
 
 vim.keymap.set('', '<ScrollWheelLeft>', 'zl', { noremap = true, silent = true })
 vim.keymap.set('', '<ScrollWheelRight>', 'zh', { noremap = true, silent = true })
-
-vim.keymap.set('n', '<leader>cc', '<cmd>CodeCompanionChat Toggle<CR>', { desc = 'Toggle Claude Code' })
