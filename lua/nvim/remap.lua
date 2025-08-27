@@ -35,7 +35,18 @@ vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { silent = true })
 vim.keymap.set('n', '*', '*N', { silent = true })
 
 vim.keymap.set('n', '<leader>b', ':b#<cr>', { silent = true })
-vim.keymap.set('n', 'K', ':bd<cr>', { silent = true })
+-- vim.keymap.set('n', 'K', ':bd<cr>', { silent = true })
+vim.keymap.set('n', 'K', function()
+   local filetype = vim.bo.filetype
+
+   if filetype == 'codecompanion' then
+      -- Custom behavior for buffers with 'special_file' in name
+      vim.cmd 'CodeCompanionChat Toggle'
+   else
+      -- Default behavior
+      vim.cmd 'bd'
+   end
+end, { silent = true })
 -- vim.keymap.set('n', '<C-K>', ':bd<cr>', { silent = true })
 
 vim.keymap.set('n', '.', '.`[', { silent = true })
@@ -55,7 +66,8 @@ vim.keymap.set('x', '<tab>', '>gv', { silent = true })
 vim.keymap.set('x', '<s-tab>', '<gv', { silent = true })
 
 if vim.fn.has 'win32' == 1 then
-   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>', { silent = true })
+   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>',
+      { silent = true })
 else
    vim.keymap.set('v', '<leader>s', ':%!sqlfmt - 2>/dev/null<cr>', { silent = true })
 end
@@ -78,3 +90,5 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
 
 vim.keymap.set('', '<ScrollWheelLeft>', 'zl', { noremap = true, silent = true })
 vim.keymap.set('', '<ScrollWheelRight>', 'zh', { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>cc', '<cmd>CodeCompanionChat Toggle<CR>', { desc = 'Toggle Claude Code' })

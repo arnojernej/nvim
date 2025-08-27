@@ -35,7 +35,7 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,popup'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -51,7 +51,7 @@ vim.opt.statuscolumn = ' %=%l %s'
 
 vim.opt.modeline = true
 
-vim.cmd 'language en_US'
+--vim.cmd 'language en_US'
 
 vim.cmd [[
 
@@ -67,3 +67,23 @@ augroup END
 ]]
 vim.opt.fillchars:append { fold = ' ' }
 vim.diagnostic.config { virtual_text = true }
+
+-- local function paste()
+--   return {
+--     vim.fn.split(vim.fn.getreg '', '\n'),
+--     vim.fn.getregtype '',
+--   }
+-- end
+--
+-- vim.g.clipboard = {
+--   name = 'OSC 52',
+--   copy = {
+--     ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+--     ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+--   },
+--   paste = {
+--     ['+'] = paste,
+--     ['*'] = paste,
+--   },
+-- }
+--return

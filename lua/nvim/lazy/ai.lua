@@ -1,51 +1,43 @@
 return {
 
-   -- 'github/copilot.vim',
+   {
+      'github/copilot.vim',
+   },
+
+   {
+      'olimorris/codecompanion.nvim',
+      opts = {
+         strategies = {
+            chat = {
+               adapter = {
+                  name = 'copilot',
+                  model = 'claude-sonnet-4',
+               },
+            },
+         },
+      },
+      dependencies = {
+         'nvim-lua/plenary.nvim',
+         'nvim-treesitter/nvim-treesitter',
+      },
+   },
 
    -- {
-   --    "yetone/avante.nvim",
-   --    event = "VeryLazy",
-   --    lazy = false,
-   --    version = false, -- set this if you want to always pull the latest change
-   --    opts = {
-   --       -- add any opts here
-   --    },
-   --    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-   --    build = "make",
-   --    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+   --    'CopilotC-Nvim/CopilotChat.nvim',
    --    dependencies = {
-   --       "nvim-treesitter/nvim-treesitter",
-   --       "stevearc/dressing.nvim",
-   --       "nvim-lua/plenary.nvim",
-   --       "MunifTanjim/nui.nvim",
-   --       --- The below dependencies are optional,
-   --       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-   --       "zbirenbaum/copilot.lua", -- for providers='copilot'
-   --       {
-   --          -- support for image pasting
-   --          "HakonHarnes/img-clip.nvim",
-   --          event = "VeryLazy",
-   --          opts = {
-   --             -- recommended settings
-   --             default = {
-   --                embed_image_as_base64 = false,
-   --                prompt_for_file_name = false,
-   --                drag_and_drop = {
-   --                   insert_mode = true,
-   --                },
-   --                -- required for Windows users
-   --                use_absolute_path = true,
-   --             },
-   --          },
-   --       },
-   --       {
-   --          -- Make sure to set this up properly if you have lazy=true
-   --          'MeanderingProgrammer/render-markdown.nvim',
-   --          opts = {
-   --             file_types = { "markdown", "Avante" },
-   --          },
-   --          ft = { "markdown", "Avante" },
-   --       },
+   --       { 'nvim-lua/plenary.nvim', branch = 'master' },
    --    },
-   -- }
+   --    build = 'make tiktoken',
+   --    opts = {
+   --       -- See Configuration section for options
+   --       --ClaudeCode
+   --       model = 'claude-sonnet-4', -- AI model to use
+   --       temperature = 0.1, -- Lower = focused, higher = creative
+   --       window = {
+   --          layout = 'horizontal', -- 'vertical', 'horizontal', 'float'
+   --          -- hight = 0.5,           -- 50% of screen width
+   --       },
+   --       auto_insert_mode = true, -- Enter insert mode when opening
+   --    },
+   -- },
 }
