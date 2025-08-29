@@ -176,10 +176,6 @@ return {
             --
             -- But for many setups, the LSP (`tsserver`) will work just fine
             -- tsserver = {},
-            prettierd = {
-               tabWidth = 2,
-               useTabs = false,
-            },
 
             lua_ls = {
                -- cmd = {...},
@@ -187,13 +183,24 @@ return {
                -- capabilities = {},
                settings = {
                   Lua = {
+                     runtime = {
+                        -- Tell the language server which version of Lua you're using
+                        version = 'LuaJIT',
+                     },
+                     diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = { 'vim' },
+                     },
+                     workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file('', true),
+                        checkThirdParty = false,
+                     },
+                     telemetry = {
+                        enable = false,
+                     },
                      completion = {
                         callSnippet = 'Replace',
-                     },
-                     -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                     -- diagnostics = { disable = { 'missing-fields' } },
-                     diagnostics = {
-                        globals = { 'vim' },
                      },
                   },
                },
@@ -247,7 +254,9 @@ return {
 
       dependencies = {
          'Kaiser-Yang/blink-cmp-avante',
+         "giuxtaposition/blink-cmp-copilot",
       },
+
 
       -- use a release tag to download pre-built binaries
       version = '*',
@@ -297,9 +306,17 @@ return {
          -- Default list of enabled providers defined so that you can extend it
          -- elsewhere in your config, without redefining it, due to `opts_extend`
          sources = {
-            default = { 'avante', 'lsp', 'path', 'buffer' },
+            default = { 'avante', 'lsp', 'copilot', 'path', 'buffer' },
             providers = {
                lsp = { fallbacks = {} },
+
+               copilot = {
+                  name = "copilot",
+                  module = "blink-cmp-copilot",
+                  score_offset = 100,
+                  async = true,
+               },
+
                avante = {
                   module = 'blink-cmp-avante',
                   name = 'Avante',
@@ -307,6 +324,7 @@ return {
                      -- options for blink-cmp-avante
                   },
                },
+
                buffer = {
                   score_offset = -10,
                   opts = {

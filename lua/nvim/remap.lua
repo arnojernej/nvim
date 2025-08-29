@@ -47,10 +47,6 @@ vim.keymap.set('n', 'K', function()
       local sidebar = require('avante').get()
       if sidebar:is_open() then
          sidebar.close(sidebar)
-         -- local sid = sidebar.get_current_sidebar()
-         -- if sid then
-         --    sidebar.close(sid)
-         -- end
       end
       vim.cmd 'bd'
    end
