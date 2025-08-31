@@ -254,7 +254,7 @@ return {
 
       dependencies = {
          'Kaiser-Yang/blink-cmp-avante',
-         "giuxtaposition/blink-cmp-copilot",
+         -- "giuxtaposition/blink-cmp-copilot",
       },
 
 
@@ -306,7 +306,7 @@ return {
          -- Default list of enabled providers defined so that you can extend it
          -- elsewhere in your config, without redefining it, due to `opts_extend`
          sources = {
-            default = { 'avante', 'lsp', 'copilot', 'path', 'buffer' },
+            default = { 'avante', 'lsp', 'path', 'buffer' },
             providers = {
                lsp = { fallbacks = {} },
 
