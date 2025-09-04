@@ -35,22 +35,22 @@ vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { silent = true })
 vim.keymap.set('n', '*', '*N', { silent = true })
 
 vim.keymap.set('n', '<leader>b', ':b#<cr>', { silent = true })
--- vim.keymap.set('n', 'K', ':bd<cr>', { silent = true })
-vim.keymap.set('n', 'K', function()
-   local filetype = vim.bo.filetype
-
-   if string.sub(filetype, 1, 6) == 'Avante' then
-      -- Custom behavior for buffers with filetype beginning with 'Avante'
-      vim.cmd 'AvanteToggle'
-   else
-      -- Default behavior
-      local sidebar = require('avante').get()
-      if sidebar:is_open() then
-         sidebar.close(sidebar)
-      end
-      vim.cmd 'bd'
-   end
-end, { silent = true })
+vim.keymap.set('n', 'K', ':bd<cr>', { silent = true })
+-- vim.keymap.set('n', 'K', function()
+--    local filetype = vim.bo.filetype
+--
+--    if string.sub(filetype, 1, 6) == 'Avante' then
+--       -- Custom behavior for buffers with filetype beginning with 'Avante'
+--       vim.cmd 'AvanteToggle'
+--    else
+--       -- Default behavior
+--       local sidebar = require('avante').get()
+--       if sidebar:is_open() then
+--          sidebar.close(sidebar)
+--       end
+--       vim.cmd 'bd'
+--    end
+-- end, { silent = true })
 -- vim.keymap.set('n', '<C-K>', ':bd<cr>', { silent = true })
 
 vim.keymap.set('n', '.', '.`[', { silent = true })
