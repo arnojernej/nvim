@@ -94,3 +94,9 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
 
 vim.keymap.set('', '<ScrollWheelLeft>', 'zl', { noremap = true, silent = true })
 vim.keymap.set('', '<ScrollWheelRight>', 'zh', { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>cp", function()
+   local relpath = vim.fn.expand("%")
+   vim.fn.setreg("+", relpath)
+   print("Copied relative path to clipboard: " .. relpath)
+end, { desc = "Copy relative file path to clipboard" })
