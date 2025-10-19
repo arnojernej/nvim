@@ -1,8 +1,6 @@
 return {
 
    -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
-   --
-   { 'nvim-mini/mini.pick', version = false },
 
    {
       'nvim-telescope/telescope.nvim',
@@ -19,6 +17,9 @@ return {
          require('telescope').setup {
 
             pickers = {
+               find_files = {
+                  find_command = { "fdfind", "--type", "f", "-L", },
+               },
                git_branches = {
                   mappings = {
                      i = { ['<cr>'] = actions.git_switch_branch },
@@ -49,21 +50,21 @@ return {
                mappings = {
                   i = {
                      ['<ESC>'] = actions.close,
-                     -- ['<cr>'] = function(prompt_bufnr)
-                     --    actions.smart_send_to_qflist(prompt_bufnr)
-                     --
-                     --    local entry = action_state.get_selected_entry()
-                     --
-                     --    if entry then
-                     --       if entry.filename then
-                     --          vim.cmd('edit ' .. vim.fs.normalize(entry.filename))
-                     --       end
-                     --
-                     --       if entry.col and entry.lnum then
-                     --          vim.fn.setpos('.', { 0, entry.lnum, entry.col, 0 })
-                     --       end
-                     --    end
-                     -- end,
+                     ['<cr>'] = function(prompt_bufnr)
+                        actions.smart_send_to_qflist(prompt_bufnr)
+
+                        local entry = action_state.get_selected_entry()
+
+                        if entry then
+                           if entry.filename then
+                              vim.cmd('edit ' .. vim.fs.normalize(entry.filename))
+                           end
+
+                           if entry.col and entry.lnum then
+                              vim.fn.setpos('.', { 0, entry.lnum, entry.col, 0 })
+                           end
+                        end
+                     end,
                      ['<C-u>'] = false,
                      ['<C-d>'] = false,
                   },
