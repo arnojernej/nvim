@@ -42,8 +42,8 @@ config.colors = {
 -- }
 
 config.window_frame = {
-	-- font = wezterm.font({ family = "MesloLGMDZ Nerd Font Mono", weight = "Bold" }),
-	font = wezterm.font({ family = "MesloLGMDZ Nerd Font Mono", weight = "Bold" }),
+	-- font = wezterm.font({ family = "MesloLGMDZ Nerd Font", weight = "Bold" }),
+	font = wezterm.font({ family = "MesloLGMDZ Nerd Font", weight = "Bold" }),
 
 	-- The size of the font in the tab bar.
 	-- Default to 10.0 on Windows but 12.0 on other systems
@@ -63,13 +63,9 @@ config.bold_brightens_ansi_colors = false
 -- config.freetype_load_target = 'Light'
 config.freetype_render_target = "HorizontalLcd"
 
--- config.font = wezterm.font("MesloLGMDZ Nerd Font Mono")
--- config.font_size = 11.3
--- config.line_height = 0.9
-
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font("MesloLGMDZ Nerd Font")
 config.font_size = 11.3
-config.line_height = 1.05
+config.line_height = 0.9
 
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 -- config.window_decorations = 'RESIZE'
