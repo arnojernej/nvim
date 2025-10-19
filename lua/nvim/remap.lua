@@ -100,3 +100,31 @@ vim.keymap.set("n", "<leader>cp", function()
    vim.fn.setreg("+", relpath)
    print("Copied relative path to clipboard: " .. relpath)
 end, { desc = "Copy relative file path to clipboard" })
+
+-- Markdown checkbox toggle for spacebar
+vim.api.nvim_create_autocmd('FileType', {
+   pattern = 'markdown',
+   callback = function()
+      vim.keymap.set('n', '<Space>', function()
+         local line = vim.fn.getline('.')
+         local linenum = vim.fn.line('.')
+
+         -- Check if line starts with '- '
+         if string.sub(line, 1, 2) == '- ' then
+            local newline
+            -- Check if it already has a checkbox
+            if string.match(line, '^- %[ %]') then
+               -- Change [ ] to [x]
+               newline = string.gsub(line, '^- %[ %]', '- [x]', 1)
+            elseif string.match(line, '^- %[x%]') then
+               -- Change [x] to [ ]
+               newline = string.gsub(line, '^- %[x%]', '- [ ]', 1)
+            else
+               -- Add checkbox after '- '
+               newline = string.sub(line, 1, 2) .. '[ ] ' .. string.sub(line, 3)
+            end
+            vim.fn.setline(linenum, newline)
+         end
+      end, { silent = true, buffer = true })
+   end,
+})
