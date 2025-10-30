@@ -76,8 +76,6 @@ else
    vim.keymap.set('v', '<leader>s', ':%!sqlfmt - 2>/dev/null<cr>', { silent = true })
 end
 
-vim.keymap.set('n', '<C-g>', '<cmd>silent !tmux neww ~/.local/scripts/tmux-sessionizer<CR>')
-
 vim.keymap.set('n', '<C-p>', '{', { silent = false })
 vim.keymap.set('n', '<C-n>', '}', { silent = false })
 
@@ -101,3 +99,29 @@ vim.keymap.set("n", "<leader>cp", function()
    print("Copied relative path to clipboard: " .. relpath)
 end, { desc = "Copy relative file path to clipboard" })
 
+vim.keymap.set("n", "<leader>t", function()
+   vim.cmd("edit ~/todo.md")
+end, { desc = "Open todo.md" })
+
+-- Insert file path with fuzzy finder
+vim.keymap.set('i', '<C-f>', function()
+   require('telescope.builtin').find_files({
+      attach_mappings = function(_, map)
+         local actions = require('telescope.actions')
+         local action_state = require('telescope.actions.state')
+
+         map('i', '<CR>', function(prompt_bufnr)
+            local entry = action_state.get_selected_entry()
+            actions.close(prompt_bufnr)
+
+            -- Get path relative to current working directory
+            local path = vim.fn.fnamemodify(entry.path, ':.')
+
+            -- Insert the path at cursor position
+            vim.api.nvim_put({path}, '', true, true)
+         end)
+
+         return true
+      end
+   })
+end, { desc = 'Insert file path from fuzzy finder' })
