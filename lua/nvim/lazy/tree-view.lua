@@ -31,8 +31,12 @@ return {
          filters = {
             git_ignored = false,
             dotfiles = false,
+            exclude = {
+               '.gitignore',
+               '.gitlab-ci.yml',
+            },
             custom = {
-               '.git',
+               '^\\.git$',
                'node_modules',
                '__pycache__',
                '.cache',
@@ -44,7 +48,6 @@ return {
                '.mypy_cache',
                '.tox',
                '.next',
-               '!.gitlab-ci.yml',
             },
          },
 

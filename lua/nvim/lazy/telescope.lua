@@ -18,7 +18,7 @@ return {
 
             pickers = {
                find_files = {
-                  find_command = { "fdfind", "--type", "f", "-L", },
+                  find_command = { "fdfind", "--type", "f", "-L", "--hidden" },
                },
                git_branches = {
                   mappings = {
