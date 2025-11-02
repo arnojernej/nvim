@@ -19,7 +19,7 @@ Each plugin or group of related plugins has its own file in `lua/nvim/lazy/`:
 - `lsp.lua` - LSP configuration with Mason for automatic language server management
 - `telescope.lua` - Fuzzy finder with custom pickers and keymaps
 - `treesitter.lua` - Syntax highlighting and code understanding
-- `ai.lua` - AI assistance plugins (Copilot, Avante)
+- `ai.lua` - AI assistance plugins (Copilot)
 - `colors.lua` - Color scheme and appearance
 - `visuals.lua` - UI enhancements (statusline, scrollbar, etc.)
 - `init.lua` - Basic utility plugins (autopairs, surround, etc.)
@@ -28,7 +28,7 @@ Each plugin or group of related plugins has its own file in `lua/nvim/lazy/`:
 - Uses lazy.nvim for plugin management with lazy loading
 - LSP setup with Mason for automatic language server installation
 - Telescope for fuzzy finding with custom configurations
-- AI integration via Copilot and Avante
+- AI integration via Copilot
 - Custom keymaps optimized for productivity (Space as leader key)
 - Platform-specific configurations (Windows/Unix)
 

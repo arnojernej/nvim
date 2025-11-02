@@ -253,7 +253,6 @@ return {
       'saghen/blink.cmp',
 
       dependencies = {
-         'Kaiser-Yang/blink-cmp-avante',
          -- "giuxtaposition/blink-cmp-copilot",
       },
 
@@ -306,7 +305,7 @@ return {
          -- Default list of enabled providers defined so that you can extend it
          -- elsewhere in your config, without redefining it, due to `opts_extend`
          sources = {
-            default = { 'avante', 'lsp', 'path', 'buffer' },
+            default = { 'lsp', 'path', 'buffer' },
             providers = {
                lsp = { fallbacks = {} },
 
@@ -315,14 +314,6 @@ return {
                   module = "blink-cmp-copilot",
                   score_offset = 100,
                   async = true,
-               },
-
-               avante = {
-                  module = 'blink-cmp-avante',
-                  name = 'Avante',
-                  opts = {
-                     -- options for blink-cmp-avante
-                  },
                },
 
                buffer = {
