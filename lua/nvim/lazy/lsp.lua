@@ -61,7 +61,7 @@ return {
                -- for LSP related items. It sets the mode, buffer and description for us each time.
                local map = function(keys, func, desc, mode)
                   mode = mode or 'n'
-                  vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+                  vim.keymap.set(mode, keys, func, { buf = event.buf, desc = 'LSP: ' .. desc })
                end
 
                -- Jump to the definition of the word under your cursor.
@@ -96,7 +96,7 @@ return {
                --  Most Language Servers support renaming across files, etc.
                map('R', vim.lsp.buf.rename, '[R]e[n]ame')
 
-               map('<leader>i', vim.lsp.buf.hover, 'Hover Documentation')
+               map('<leader>i', function() vim.lsp.buf.hover({ border = 'rounded', focusable = false }) end, 'Hover Documentation')
                map('<leader>d', vim.diagnostic.open_float, 'Hover Diagnostic')
 
                -- Execute a code action, usually your cursor needs to be on top of an error
@@ -240,12 +240,6 @@ return {
             },
          }
 
-         -- Custom hover handler that trims blank lines from the hover text
-         vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-            border = 'rounded', -- Optional: Set rounded borders if desired
-            -- Custom formatting to trim leading/trailing blank lines
-            focusable = false,
-         })
       end,
    },
 
@@ -308,13 +302,6 @@ return {
             default = { 'lsp', 'path', 'buffer' },
             providers = {
                lsp = { fallbacks = {} },
-
-               copilot = {
-                  name = "copilot",
-                  module = "blink-cmp-copilot",
-                  score_offset = 100,
-                  async = true,
-               },
 
                buffer = {
                   score_offset = -10,
