@@ -324,11 +324,13 @@ return {
          keymap = { preset = 'default' },
 
          -- Window borders come from 'winborder' (see lua/nvim/set.lua): blink
-         -- falls back to it whenever a border isn't set explicitly.
+         -- falls back to it whenever a border isn't set explicitly. The
+         -- suggestion menu is the exception - it stays borderless.
          completion = {
             keyword = { range = 'full' },
             documentation = { auto_show = true },
             menu = {
+               border = 'none',
                draw = {
                   treesitter = { 'lsp' },
                   columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } },
