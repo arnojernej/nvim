@@ -32,6 +32,12 @@ return {
                      newfile = '[New]',
                   },
                },
+               -- nvim 0.12 puts vim.diagnostic.status() in the default
+               -- statusline; lualine replaces that, so put the counts back.
+               {
+                  'diagnostics',
+                  symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
+               },
             },
          },
       },
@@ -53,7 +59,7 @@ return {
             group = yank_group,
             pattern = '*',
             callback = function()
-               vim.highlight.on_yank {
+               vim.hl.on_yank {
                   higroup = 'IncSearch',
                   timeout = 150,
                }
@@ -127,9 +133,9 @@ return {
 
    {
       'MeanderingProgrammer/render-markdown.nvim',
-      dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
-      -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
-      -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+      -- nvim-web-devicons is already pulled in by oil/nvim-tree; the mini.nvim
+      -- suite was ~40 modules loaded for an icon lookup.
+      dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
       ---@module 'render-markdown'
       ---@type render.md.UserConfig
       opts = {},

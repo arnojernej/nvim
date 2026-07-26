@@ -1,29 +1,21 @@
+-- Copilot is no longer a plugin: Neovim 0.12 speaks `textDocument/inlineCompletion`
+-- natively, so suggestions come from copilot-language-server (installed by mason)
+-- and are rendered by vim.lsp.inline_completion. See lua/nvim/lazy/lsp.lua for the
+-- config and the <Tab> / <M-]> / <M-[> keymaps.
+
 return {
 
-   {
-      'zbirenbaum/copilot.lua',
-      cmd = 'Copilot',
-      build = ':Copilot auth',
-      event = 'InsertEnter',
-      config = function()
-         require('copilot').setup {
-            suggestion = {
-               enabled = true,
-               auto_trigger = true,
-               keymap = {
-                  accept = '<tab>',
-                  next = '<M-]>',
-                  prev = '<M-[>',
-               },
-            },
-            panel = { enabled = false },
-            filetypes = {
-               markdown = true,
-               help = true,
-            },
-         }
-      end,
-   },
+   -- {
+   --    'zbirenbaum/copilot.lua',
+   --    cmd = 'Copilot',
+   --    build = ':Copilot auth',
+   --    event = 'InsertEnter',
+   --    opts = {
+   --       suggestion = { enabled = true, auto_trigger = true, keymap = { accept = '<tab>', next = '<M-]>', prev = '<M-[>' } },
+   --       panel = { enabled = false },
+   --       filetypes = { markdown = true, help = true },
+   --    },
+   -- },
 
    -- {
    --    'github/copilot.vim',

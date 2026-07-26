@@ -19,7 +19,8 @@ Each plugin or group of related plugins has its own file in `lua/nvim/lazy/`:
 - `lsp.lua` - LSP configuration with Mason for automatic language server management
 - `telescope.lua` - Fuzzy finder with custom pickers and keymaps
 - `treesitter.lua` - Syntax highlighting and code understanding
-- `ai.lua` - AI assistance plugins (Copilot)
+- `ai.lua` - AI assistance plugins (Copilot now runs as a language server; see `lsp.lua`)
+- `conform.lua` - Formatters (stylua, black/isort, prettierd)
 - `colors.lua` - Color scheme and appearance
 - `visuals.lua` - UI enhancements (statusline, scrollbar, etc.)
 - `init.lua` - Basic utility plugins (autopairs, surround, etc.)
@@ -46,18 +47,21 @@ Each plugin or group of related plugins has its own file in `lua/nvim/lazy/`:
 
 ### LSP Management (via Mason)
 - **Install language servers**: `:Mason`
-- **LSP info for current buffer**: `:LspInfo`
-- **Restart LSP**: `:LspRestart`
+- **Inspect/attach/detach/restart clients**: `:lsp` (Neovim 0.12; replaces `:LspInfo`/`:LspRestart`)
+- **Health check**: `:checkhealth vim.lsp`
+- **Formatting**: conform.nvim (`:ConformInfo`), bound to `<enter>` with an LSP fallback
 
 ### Key Configuration Details
 
 #### Custom Keymaps
 - Leader key: `<Space>`
-- `<Enter>` in normal mode: Format and save file
+- `<Enter>` in normal mode: Format (conform) and save file
 - `K` in normal mode: Close current buffer
 - `gn`/`gN`: Navigate quickfix list
 - Custom window navigation with `<C-hjkl>`
 - SQL formatting with `<leader>s`
+- `<leader>e`: nvim-tree; `-`: oil (edit parent directory)
+- Insert mode: `<Tab>` accepts a Copilot inline completion, `<M-]>`/`<M-[>` cycle candidates
 
 #### File Structure Patterns
 - Filetype-specific configs in `ftplugin/` directory

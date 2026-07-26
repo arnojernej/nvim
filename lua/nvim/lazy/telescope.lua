@@ -14,11 +14,14 @@ return {
          local actions = require 'telescope.actions'
          local action_state = require 'telescope.actions.state'
 
+         -- Debian ships fd as `fdfind`, everyone else as `fd`.
+         local fd = vim.fn.executable 'fd' == 1 and 'fd' or 'fdfind'
+
          require('telescope').setup {
 
             pickers = {
                find_files = {
-                  find_command = { "fdfind", "--type", "f", "-L", "--hidden" },
+                  find_command = { fd, '--type', 'f', '-L', '--hidden' },
                },
                git_branches = {
                   mappings = {

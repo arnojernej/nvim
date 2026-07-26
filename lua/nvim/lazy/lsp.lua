@@ -4,9 +4,10 @@ return {
 
       'neovim/nvim-lspconfig',
       dependencies = {
-         -- Automatically install LSPs and related tools to stdpath for Neovim
-         { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-         'williamboman/mason-lspconfig.nvim',
+         -- Automatically install LSPs and related tools to stdpath for Neovim.
+         -- NOTE: mason moved to the mason-org org; both are set up in config() below.
+         'mason-org/mason.nvim',
+         'mason-org/mason-lspconfig.nvim',
          'WhoIsSethDaniel/mason-tool-installer.nvim',
 
          -- Useful status updates for LSP.
@@ -96,7 +97,7 @@ return {
                --  Most Language Servers support renaming across files, etc.
                map('R', vim.lsp.buf.rename, '[R]e[n]ame')
 
-               map('<leader>i', function() vim.lsp.buf.hover({ border = 'rounded', focusable = false }) end, 'Hover Documentation')
+               map('<leader>i', function() vim.lsp.buf.hover { focusable = false } end, 'Hover Documentation')
                map('<leader>d', vim.diagnostic.open_float, 'Hover Diagnostic')
 
                -- Execute a code action, usually your cursor needs to be on top of an error
@@ -107,13 +108,17 @@ return {
                --  For example, in C this would take you to the header.
                map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+               local client = vim.lsp.get_client_by_id(event.data.client_id)
+               if not client then
+                  return
+               end
+
                -- The following two autocommands are used to highlight references of the
                -- word under your cursor when your cursor rests there for a little while.
                --    See `:help CursorHold` for information about when this is executed
                --
                -- When you move your cursor, the highlights will be cleared (the second autocommand).
-               -- local client = vim.lsp.get_client_by_id(event.data.client_id)
-               -- if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+               -- if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                --   local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
                --   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
                --     buffer = event.buf,
@@ -140,13 +145,42 @@ return {
                -- code, if the language server you are using supports them
                --
                -- This may be unwanted, since they displace some of your code
-               if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+               if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
                   map('<leader>th', function()
                      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
                   end, '[T]oggle Inlay [H]ints')
                end
+
+               -- Rename an opening tag and its closing tag together (JSX, HTML, ...).
+               -- Native replacement for nvim-ts-autotag.
+               if client:supports_method(vim.lsp.protocol.Methods.textDocument_linkedEditingRange) then
+                  vim.lsp.linked_editing_range.enable(true, { client_id = client.id })
+               end
+
+               -- Copilot-style overlay suggestions, served by copilot-language-server.
+               -- Filter on bufnr only: passing client_id as well sets just the
+               -- client-side marker, leaving vim.lsp.inline_completion.is_enabled()
+               -- false for the buffer (see :h vim.lsp.inline_completion.enable()).
+               if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then
+                  vim.lsp.inline_completion.enable(true, { bufnr = event.buf })
+               end
             end,
          })
+
+         -- Accept / cycle inline completions, same keys copilot.lua used.
+         vim.keymap.set('i', '<Tab>', function()
+            if not vim.lsp.inline_completion.get() then
+               return '<Tab>'
+            end
+         end, { expr = true, replace_keycodes = true, desc = 'Accept inline completion' })
+
+         vim.keymap.set('i', '<M-]>', function()
+            vim.lsp.inline_completion.select { count = 1 }
+         end, { desc = 'Next inline completion' })
+
+         vim.keymap.set('i', '<M-[>', function()
+            vim.lsp.inline_completion.select { count = -1 }
+         end, { desc = 'Previous inline completion' })
 
          -- LSP servers and clients are able to communicate to each other what features they support.
          --  By default, Neovim doesn't support everything that is in the LSP specification.
@@ -165,6 +199,11 @@ return {
          --  - settings (table): Override the default settings passed when initializing the server.
          --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
          local servers = {
+            -- Provides textDocument/linkedEditingRange for plain .html files,
+            -- i.e. the paired tag renaming nvim-ts-autotag used to do (vtsls
+            -- covers jsx/tsx on its own).
+            html = {},
+
             -- clangd = {},
             -- gopls = {},
             -- pyright = {},
@@ -224,6 +263,8 @@ return {
          local ensure_installed = vim.tbl_keys(servers or {})
          vim.list_extend(ensure_installed, {
             'stylua', -- Used to format Lua code
+            'isort', -- Python import sorting (conform); was configured but never installed
+            'copilot-language-server', -- Inline completions, see below
          })
          require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -237,7 +278,18 @@ return {
             vim.lsp.config(server_name, server_config)
          end
 
+         -- mason-lspconfig also auto-enables everything installed via :Mason,
+         -- this makes the servers configured above explicit.
          vim.lsp.enable(vim.tbl_keys(servers))
+
+         -- GitHub Copilot. The config itself ships with nvim-lspconfig
+         -- (lsp/copilot.lua); suggestions are drawn by vim.lsp.inline_completion,
+         -- enabled in the LspAttach handler above. Auth is shared with the
+         -- Copilot CLI (~/.config/github-copilot); :LspCopilotSignIn if needed.
+         vim.lsp.config('copilot', {
+            settings = { telemetry = { telemetryLevel = 'off' } },
+         })
+         vim.lsp.enable 'copilot'
       end,
    },
 
@@ -271,18 +323,18 @@ return {
          -- See the full "keymap" documentation for information on defining your own keymap.
          keymap = { preset = 'default' },
 
+         -- Window borders come from 'winborder' (see lua/nvim/set.lua): blink
+         -- falls back to it whenever a border isn't set explicitly.
          completion = {
             keyword = { range = 'full' },
-            documentation = { auto_show = true, window = { border = 'rounded' } },
+            documentation = { auto_show = true },
             menu = {
-               -- border = 'rounded',
                draw = {
                   treesitter = { 'lsp' },
                   columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', 'kind', gap = 1 } },
                },
             },
          },
-         signature = { window = { border = 'rounded' } },
 
          appearance = {
             -- Sets the fallback highlight groups to nvim-cmp's highlight groups

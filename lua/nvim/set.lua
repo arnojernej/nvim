@@ -1,6 +1,5 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.timeoutlen = 1500
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -48,26 +47,69 @@ vim.opt.colorcolumn = '80'
 vim.opt.pumheight = 10
 vim.o.pumborder = 'rounded'
 
+-- Default border for every floating window (nvim 0.11+). Plugins that don't
+-- hardcode a border (blink.cmp, lsp hover, diagnostic floats, ...) inherit it,
+-- so it only needs to be set once.
+vim.o.winborder = 'rounded'
+
 vim.opt.statuscolumn = ' %=%l %s'
 
 vim.opt.modeline = true
 
 --vim.cmd 'language en_US'
 
-vim.cmd [[
+vim.o.swapfile = false
+vim.o.foldmethod = 'marker'
 
-set noswf
-set foldmethod=marker
+-- Only real, on-disk file buffers get a saved view. Without this guard nvim
+-- writes view files for gitcommit/oil/help/... buffers, which is noise at best
+-- and restores stale state at worst.
+local function viewable(buf)
+   return vim.bo[buf].buftype == ''
+      and vim.bo[buf].modifiable
+      and vim.api.nvim_buf_get_name(buf) ~= ''
+      and not vim.tbl_contains({ 'gitcommit', 'gitrebase', 'hgcommit', 'svn', 'oil', 'help' }, vim.bo[buf].filetype)
+end
 
-augroup remember_folds
-  autocmd!
-  au BufWinLeave ?* mkview 1
-  au BufWinEnter ?* silent! loadview 1
-augroup END
+local view_group = vim.api.nvim_create_augroup('remember_folds', { clear = true })
 
-]]
+vim.api.nvim_create_autocmd('BufWinLeave', {
+   group = view_group,
+   pattern = '?*',
+   callback = function(args)
+      if args.buf == vim.api.nvim_get_current_buf() and viewable(args.buf) then
+         vim.cmd 'silent! mkview 1'
+      end
+   end,
+})
+
+vim.api.nvim_create_autocmd('BufWinEnter', {
+   group = view_group,
+   pattern = '?*',
+   callback = function(args)
+      if viewable(args.buf) then
+         vim.cmd 'silent! loadview 1'
+      end
+   end,
+})
+
+-- Restore the last cursor position for files without a saved view.
+-- (Replaces nvim-lastplace, unmaintained since 2023.)
+vim.api.nvim_create_autocmd('BufReadPost', {
+   group = view_group,
+   callback = function(args)
+      if not viewable(args.buf) then
+         return
+      end
+      local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+      if mark[1] > 0 and mark[1] <= vim.api.nvim_buf_line_count(args.buf) then
+         pcall(vim.api.nvim_win_set_cursor, 0, mark)
+         vim.cmd 'silent! normal! zv'
+      end
+   end,
+})
+
 vim.opt.fillchars:append { fold = ' ' }
-vim.diagnostic.config { virtual_text = true }
 
 -- local function paste()
 --   return {

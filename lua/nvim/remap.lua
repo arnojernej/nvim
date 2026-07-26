@@ -11,10 +11,16 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- NOTE: <leader>e is nvim-tree (see lazy/tree-view.lua); the floating
+-- diagnostic lives on <leader>d (see lazy/lsp.lua).
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-vim.keymap.set('n', '<enter>', ':lua vim.lsp.buf.format({ async = false})<cr>:w<cr>', { silent = true })
+-- Format (conform: external formatters, falling back to the LSP) and save.
+vim.keymap.set('n', '<enter>', function()
+   -- 1s (conform's default) is not enough for a cold `black`.
+   require('conform').format { async = false, lsp_format = 'fallback', timeout_ms = 4000 }
+   vim.cmd 'write'
+end, { silent = true, desc = 'Format and save' })
 vim.keymap.set('x', '<enter>', '<esc>:w<cr>', { silent = true })
 
 -- Remap Enter in Quickfix window to open the selected entry, again

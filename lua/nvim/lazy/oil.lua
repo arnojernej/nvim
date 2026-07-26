@@ -9,7 +9,9 @@ return {
       dependencies = { 'nvim-tree/nvim-web-devicons' }, -- use if prefer
       -- nvim-web-devicons
       config = function()
-         -- vim.keymap.set('n', '<leader>e', ':Oil --float<CR>', { silent = true })
+         -- <leader>e is nvim-tree; `-` is oil's canonical "edit the parent
+         -- directory" mapping (`-` again inside oil goes up another level).
+         vim.keymap.set('n', '-', '<cmd>Oil<cr>', { silent = true, desc = 'Open parent directory' })
 
          require('oil').setup {
             skip_confirm_for_simple_edits = true,

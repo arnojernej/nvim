@@ -7,14 +7,8 @@ return {
 
    'mtdl9/vim-log-highlighting',
 
-   {
-      'ethanholz/nvim-lastplace',
-      opts = {
-         lastplace_ignore_buftype = { 'quickfix', 'nofile', 'help' },
-         lastplace_ignore_filetype = { 'gitcommit', 'gitrebase', 'svn', 'hgcommit' },
-         lastplace_open_folds = true,
-      },
-   },
+   -- nvim-lastplace (unmaintained since 2023) is replaced by the cursor/view
+   -- restore autocmds in lua/nvim/set.lua.
 
    {
       'windwp/nvim-autopairs',
@@ -22,7 +16,8 @@ return {
       opts = {}, -- this is equalent to setup({}) function
    },
 
-   { 'windwp/nvim-ts-autotag', opts = {} },
+   -- nvim-ts-autotag is replaced by vim.lsp.linked_editing_range, enabled per
+   -- client in lua/nvim/lazy/lsp.lua.
 
    {
       'folke/ts-comments.nvim',
