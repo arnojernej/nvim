@@ -59,12 +59,10 @@ vim.cmd [[
 vim.keymap.set('x', '<tab>', '>gv', { silent = true })
 vim.keymap.set('x', '<s-tab>', '<gv', { silent = true })
 
-if vim.fn.has 'win32' == 1 then
-   vim.keymap.set('v', '<leader>s', ':%!C:\\3_REPO_LOCAL\\DBeaver_sqlfmt\\bin\\Release\\net8.0\\DBeaver_sqlfmt.exe<cr>',
-      { silent = true })
-else
-   vim.keymap.set('v', '<leader>s', ':%!sqlfmt - 2>/dev/null<cr>', { silent = true })
-end
+-- Format the buffer with sqlfmt. Mason installs it on every platform and puts
+-- it on Neovim's PATH, so the only per-platform bit is discarding stderr.
+local devnull = vim.fn.has 'win32' == 1 and '2>nul' or '2>/dev/null'
+vim.keymap.set('v', '<leader>s', (':%%!sqlfmt - %s<cr>'):format(devnull), { silent = true })
 
 vim.keymap.set('n', '<C-p>', '{', { silent = false })
 vim.keymap.set('n', '<C-n>', '}', { silent = false })

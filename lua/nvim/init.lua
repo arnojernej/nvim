@@ -1,5 +1,10 @@
 if vim.fn.has 'win32' == 1 then
-   vim.opt.shadafile = 'C:/Temp/shada'
+   -- Keep shada on a local disk, but somewhere that is guaranteed to exist:
+   -- C:/Temp is not present on a fresh machine, and stdpath('data') is
+   -- %LOCALAPPDATA%\nvim-data, i.e. local rather than a roaming profile.
+   local shada = vim.fs.joinpath(vim.fn.stdpath 'data', 'shada')
+   vim.fn.mkdir(shada, 'p')
+   vim.opt.shadafile = vim.fs.joinpath(shada, 'main.shada')
 end
 
 require 'nvim.set'

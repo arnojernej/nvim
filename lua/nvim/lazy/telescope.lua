@@ -7,7 +7,13 @@ return {
       branch = 'master',
       dependencies = {
          'nvim-lua/plenary.nvim',
-         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+         -- `--target install` matters on Windows: MSVC is a multi-config
+         -- generator, so without it the library lands in build/Release/ while
+         -- fzf_lib.lua loads build/libfzf.dll. No-op on Unix generators.
+         {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install',
+         },
       },
       config = function()
          local builtin = require 'telescope.builtin'
