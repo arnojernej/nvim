@@ -45,6 +45,28 @@ Each plugin or group of related plugins has its own file in `lua/nvim/lazy/`:
 - **Plugin status**: `:Lazy`
 - **Profile startup time**: `:Lazy profile`
 
+### Treesitter (main branch) — external requirements
+
+`nvim-treesitter` tracks the `main` branch, which compiles parsers itself instead
+of downloading them. It needs the **`tree-sitter` CLI 0.26.1 or later** on `$PATH`
+(plus a C compiler, `tar` and `curl`). Verify with `:checkhealth nvim-treesitter`.
+
+Without a new enough CLI, existing parsers keep working — only installing and
+updating parsers (`ts.install{...}` in `lua/nvim/lazy/treesitter.lua`) fails.
+
+**On Ubuntu, `apt install tree-sitter-cli` is too old**: 24.04 ships 0.20.8,
+25.10 ships 0.22.6, 26.04 ships 0.25.9 — all below the 0.26.1 minimum. Install
+the release binary instead (or `cargo install tree-sitter-cli`; not npm, which
+nvim-treesitter explicitly warns against):
+
+```sh
+curl -L https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz \
+  | gunzip > ~/.local/bin/tree-sitter && chmod +x ~/.local/bin/tree-sitter
+```
+
+Related Ubuntu note: its `fd-find` package installs the binary as `fdfind`, which
+is why `lua/nvim/lazy/telescope.lua` resolves `fd` vs `fdfind` at startup.
+
 ### LSP Management (via Mason)
 - **Install language servers**: `:Mason`
 - **Inspect/attach/detach/restart clients**: `:lsp` (Neovim 0.12; replaces `:LspInfo`/`:LspRestart`)
