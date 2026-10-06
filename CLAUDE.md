@@ -2,99 +2,50 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Architecture Overview
+Personal Neovim config in Lua, managed by lazy.nvim. It targets **Neovim 0.12+**: it relies on `vim.lsp.config`/`vim.lsp.enable`, `vim.lsp.inline_completion`, `vim.lsp.linked_editing_range`, `'winborder'`, `vim.diagnostic.jump`, and the nvim-treesitter `main` branch rewrite. Don't reintroduce pre-0.11 APIs such as `require('lspconfig').X.setup`, `nvim-treesitter.configs`, `vim.diagnostic.goto_*`, `vim.loop` or `vim.highlight`.
 
-This is a modern Neovim configuration written in Lua, using the lazy.nvim plugin manager for modular plugin loading. The configuration follows a structured approach:
+## Commands
 
-### Core Structure
-- `init.lua` - Entry point that loads the main configuration from `lua/nvim/`
-- `lua/nvim/init.lua` - Main configuration loader that sets up platform-specific paths, loads core settings, keymaps, and initializes plugin management
-- `lua/nvim/lazy_init.lua` - Lazy.nvim bootstrap and setup
-- `lua/nvim/set.lua` - Core Vim settings and options
-- `lua/nvim/remap.lua` - Global keymaps and key bindings
-- `lua/nvim/lazy/` - Modular plugin configurations
+There is no test suite. To check a change:
 
-### Plugin Architecture
-Each plugin or group of related plugins has its own file in `lua/nvim/lazy/`:
-- `lsp.lua` - LSP configuration with Mason for automatic language server management
-- `telescope.lua` - Fuzzy finder with custom pickers and keymaps
-- `treesitter.lua` - Syntax highlighting and code understanding
-- `ai.lua` - AI assistance plugins (Copilot now runs as a language server; see `lsp.lua`)
-- `conform.lua` - Formatters (stylua, black/isort, prettierd)
-- `colors.lua` - Color scheme and appearance
-- `visuals.lua` - UI enhancements (statusline, scrollbar, etc.)
-- `init.lua` - Basic utility plugins (autopairs, surround, etc.)
+- **Startup errors**: `nvim --headless +qa` (any error output means something broke at load time)
+- **Sync plugins to the lockfile**: `nvim --headless "+Lazy! restore" +qa`. Use `"+Lazy! sync"` to update instead.
+- **Format Lua**: `stylua .`. Mason installs stylua to `~/.local/share/nvim/mason/bin/`, which may not be on `PATH`.
+- **Health**: `:checkhealth vim.lsp`, `:checkhealth nvim-treesitter`, `:lsp`, `:ConformInfo`, `:Lazy`, `:Mason`
 
-### Key Features
-- Uses lazy.nvim for plugin management with lazy loading
-- LSP setup with Mason for automatic language server installation
-- Telescope for fuzzy finding with custom configurations
-- AI integration via Copilot
-- Custom keymaps optimized for productivity (Space as leader key)
-- Platform-specific configurations (Windows/Unix)
+`lazy-lock.json` is committed. Plugin updates go in their own commit (`chore: update plugin dependencies via lazy.nvim`). Commits follow Conventional Commits (`feat:`, `fix(scope):`, `refactor(lsp):`).
 
-## Common Commands
+### External requirements
 
-### Development and Maintenance
-- **Format Lua code**: `stylua .` (uses `.stylua.toml` configuration)
-- **Check Lua syntax**: The Lua Language Server is configured via `.luarc.json`
+- **tree-sitter CLI ≥ 0.26.1** on `PATH` (plus a C compiler, `tar`, `curl`): the nvim-treesitter `main` branch compiles parsers itself. Without it, existing parsers keep working but installing or updating them fails. Ubuntu's `apt install tree-sitter-cli` is too old on every release up to 26.04. Use the release binary or `cargo install tree-sitter-cli`, not npm:
 
-### Plugin Management (via lazy.nvim)
-- **Update plugins**: `:Lazy update`
-- **Install plugins**: `:Lazy install`
-- **Plugin status**: `:Lazy`
-- **Profile startup time**: `:Lazy profile`
+  ```sh
+  curl -L https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz \
+    | gunzip > ~/.local/bin/tree-sitter && chmod +x ~/.local/bin/tree-sitter
+  ```
 
-### Treesitter (main branch) — external requirements
+- **fd**: telescope's `find_files` uses `fd`, falling back to `fdfind` (the Debian/Ubuntu binary name).
 
-`nvim-treesitter` tracks the `main` branch, which compiles parsers itself instead
-of downloading them. It needs the **`tree-sitter` CLI 0.26.1 or later** on `$PATH`
-(plus a C compiler, `tar` and `curl`). Verify with `:checkhealth nvim-treesitter`.
+## Code style
 
-Without a new enough CLI, existing parsers keep working — only installing and
-updating parsers (`ts.install{...}` in `lua/nvim/lazy/treesitter.lua`) fails.
+`.stylua.toml` uses **3-space indent**, 160 columns, single quotes, and no parentheses on single-string/table calls (`require 'x'`, `setup { }`). The 4-space `tabstop`/`shiftwidth` in `set.lua` applies to files you edit in Neovim, not to this repo's Lua.
 
-**On Ubuntu, `apt install tree-sitter-cli` is too old**: 24.04 ships 0.20.8,
-25.10 ships 0.22.6, 26.04 ships 0.25.9 — all below the 0.26.1 minimum. Install
-the release binary instead (or `cargo install tree-sitter-cli`; not npm, which
-nvim-treesitter explicitly warns against):
+## Architecture
 
-```sh
-curl -L https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz \
-  | gunzip > ~/.local/bin/tree-sitter && chmod +x ~/.local/bin/tree-sitter
-```
+Load order: `init.lua` → `lua/nvim/init.lua` (Windows shada path) → `set.lua` (options, leader = Space) → `remap.lua` (global keymaps) → `lazy_init.lua`. Then `lua/nvim/init.lua` adds the trailing-whitespace-strip `BufWritePre` autocmd (skips markdown and non-modifiable buffers) and the diagnostic config (`virtual_lines` for the current line only).
 
-Related Ubuntu note: its `fd-find` package installs the binary as `fdfind`, which
-is why `lua/nvim/lazy/telescope.lua` resolves `fd` vs `fdfind` at startup.
+- **Plugin specs**: `lazy.setup { spec = 'nvim.lazy' }` imports every file in `lua/nvim/lazy/`. To add a plugin, drop in a new file that returns a spec table; no registration needed. Several files (`recent.lua`, `sql.lua`, `ai.lua`) are fully commented out and kept as a parking lot.
+- **Keymaps are scattered**: global ones live in `remap.lua`, but plugin keymaps sit inside each plugin's `config`/`init`, and LSP keymaps sit in the `LspAttach` autocmd in `lsp.lua`. Later definitions win. For example, `<leader>e` is nvim-tree (`tree-view.lua`), the diagnostic float is `<leader>d` (`lsp.lua`), and oil is `-` (`oil.lua`). Grep the whole tree before adding or changing a mapping.
+- **LSP** (`lsp.lua`): Mason installs servers, and `mason-lspconfig` v2 auto-enables every installed server with nvim-lspconfig defaults. Only servers that need overrides go in the `servers` table. That table, plus a few extra tools (stylua, isort, copilot-language-server), is passed to `mason-tool-installer`'s `ensure_installed`. Shared capabilities come from blink.cmp through `vim.lsp.config('*', …)`. The `LspAttach` handler also turns on `linked_editing_range` (replaces nvim-ts-autotag) and inline completion.
+- **Copilot**: not a plugin. `copilot-language-server` (Mason) is enabled with `vim.lsp.enable 'copilot'` in `lsp.lua`, and suggestions are drawn by `vim.lsp.inline_completion`. Insert-mode `<Tab>` accepts, `<M-]>`/`<M-[>` cycle. Auth is shared with `~/.config/github-copilot`; `:LspCopilotSignIn` if needed. It is not a blink source.
+- **Formatting**: `<Enter>` in normal mode runs `require('conform').format` (LSP fallback, 4s timeout) and then `:w`. Formatters are set per filetype in `conform.lua` (stylua, isort+black, prettierd), so the binary must be installed through Mason or on `PATH`. SQL is excluded: `<leader>s` in visual mode pipes through `sqlfmt` (`remap.lua`).
+- **Completion**: blink.cmp (`default` keymap preset) for LSP, path and buffer.
+- **Borders**: `vim.o.winborder = 'rounded'` in `set.lua` covers blink, hover and diagnostic floats. Don't add per-plugin border config unless the plugin hardcodes its own.
+- **Treesitter** (`treesitter.lua`): on the `main` branch, highlighting and indentation are started by hand in a `FileType` autocmd (`vim.treesitter.start` plus `indentexpr`). Textobject select/move/swap keymaps are bound explicitly. Add new parsers to the `ts.install { … }` list.
+- **Telescope**: the `<CR>` override in insert mode sends results to the quickfix list *and* opens the selection, so `gn`/`gN` (`:cnext`/`:cprev`) walk the results afterwards. Other code also calls telescope directly: `remap.lua` (insert-mode `<C-f>` path insert) and `ftplugin/markdown.lua` (`@` file picker).
+- **Colors**: `colors.lua` defines a global `ColorMyPencils()` that applies `juliana` and then overrides highlight groups. Highlight tweaks go there.
+- **Folds/views**: `foldmethod=marker`, plus `mkview`/`loadview` autocmds in `set.lua` that persist folds and cursor per file. They are guarded to real on-disk file buffers (no gitcommit/oil/help).
+- **ftplugin/**: per-filetype overrides. `<leader>x` means "run this file": `python3 %` for Python, `dbt run --select <model>` from the nearest `dbt_project.yml` for SQL, and disabled for TS/TSX. In markdown, `<Space>` is remapped buffer-locally to toggle a `- [ ]` checkbox, and `@` opens a file picker (`@@` types a literal `@`).
+- **Platform branches**: `vim.fn.has 'win32'` checks set the shada path under `stdpath('data')` (`lua/nvim/init.lua`) and the stderr redirect for `sqlfmt` (`remap.lua`). telescope-fzf-native builds with `--target install` so MSVC puts the DLL where it's loaded from.
 
-### LSP Management (via Mason)
-- **Install language servers**: `:Mason`
-- **Inspect/attach/detach/restart clients**: `:lsp` (Neovim 0.12; replaces `:LspInfo`/`:LspRestart`)
-- **Health check**: `:checkhealth vim.lsp`
-- **Formatting**: conform.nvim (`:ConformInfo`), bound to `<enter>` with an LSP fallback
-
-### Key Configuration Details
-
-#### Custom Keymaps
-- Leader key: `<Space>`
-- `<Enter>` in normal mode: Format (conform) and save file
-- `K` in normal mode: Close current buffer
-- `gn`/`gN`: Navigate quickfix list
-- Custom window navigation with `<C-hjkl>`
-- SQL formatting with `<leader>s`
-- `<leader>e`: nvim-tree; `-`: oil (edit parent directory)
-- Insert mode: `<Tab>` accepts a Copilot inline completion, `<M-]>`/`<M-[>` cycle candidates
-
-#### File Structure Patterns
-- Filetype-specific configs in `ftplugin/` directory
-- Plugin specs return tables from `lua/nvim/lazy/` files
-- Core Neovim settings separated from plugin configurations
-- Auto-commands for file handling (trailing whitespace removal, fold management)
-
-#### Important Settings
-- Uses 4-space indentation by default
-- Line wrapping disabled
-- Color column at 80 characters
-- Persistent undo enabled
-- Case-insensitive search with smart case
-- System clipboard integration enabled
+`stuff/` holds unrelated dotfiles (tmux, WezTerm, Vrapper, AutoHotkey). Neovim never loads them.
