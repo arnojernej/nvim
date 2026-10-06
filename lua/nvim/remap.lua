@@ -9,8 +9,12 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '[d', function()
+   vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function()
+   vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to next diagnostic message' })
 -- NOTE: <leader>e is nvim-tree (see lazy/tree-view.lua); the floating
 -- diagnostic lives on <leader>d (see lazy/lsp.lua).
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
@@ -81,22 +85,22 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
 vim.keymap.set('', '<ScrollWheelLeft>', 'zl', { noremap = true, silent = true })
 vim.keymap.set('', '<ScrollWheelRight>', 'zh', { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>cp", function()
-   local relpath = vim.fn.expand("%")
-   vim.fn.setreg("+", relpath)
-   print("Copied relative path to clipboard: " .. relpath)
-end, { desc = "Copy relative file path to clipboard" })
+vim.keymap.set('n', '<leader>cp', function()
+   local relpath = vim.fn.expand '%'
+   vim.fn.setreg('+', relpath)
+   print('Copied relative path to clipboard: ' .. relpath)
+end, { desc = 'Copy relative file path to clipboard' })
 
-vim.keymap.set("n", "<leader>t", function()
-   vim.cmd("edit ~/todo.md")
-end, { desc = "Open todo.md" })
+vim.keymap.set('n', '<leader>t', function()
+   vim.cmd 'edit ~/todo.md'
+end, { desc = 'Open todo.md' })
 
 -- Insert file path with fuzzy finder
 vim.keymap.set('i', '<C-f>', function()
-   require('telescope.builtin').find_files({
+   require('telescope.builtin').find_files {
       attach_mappings = function(_, map)
-         local actions = require('telescope.actions')
-         local action_state = require('telescope.actions.state')
+         local actions = require 'telescope.actions'
+         local action_state = require 'telescope.actions.state'
 
          map('i', '<CR>', function(prompt_bufnr)
             local entry = action_state.get_selected_entry()
@@ -106,10 +110,10 @@ vim.keymap.set('i', '<C-f>', function()
             local path = vim.fn.fnamemodify(entry.path, ':.')
 
             -- Insert the path at cursor position
-            vim.api.nvim_put({path}, '', true, true)
+            vim.api.nvim_put({ path }, '', true, true)
          end)
 
          return true
-      end
-   })
+      end,
+   }
 end, { desc = 'Insert file path from fuzzy finder' })

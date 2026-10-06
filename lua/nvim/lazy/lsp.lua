@@ -97,7 +97,9 @@ return {
                --  Most Language Servers support renaming across files, etc.
                map('R', vim.lsp.buf.rename, '[R]e[n]ame')
 
-               map('<leader>i', function() vim.lsp.buf.hover { focusable = false } end, 'Hover Documentation')
+               map('<leader>i', function()
+                  vim.lsp.buf.hover { focusable = false }
+               end, 'Hover Documentation')
                map('<leader>d', vim.diagnostic.open_float, 'Hover Diagnostic')
 
                -- Execute a code action, usually your cursor needs to be on top of an error
@@ -299,7 +301,6 @@ return {
       dependencies = {
          -- "giuxtaposition/blink-cmp-copilot",
       },
-
 
       -- use a release tag to download pre-built binaries
       version = '*',

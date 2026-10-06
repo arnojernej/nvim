@@ -36,10 +36,10 @@ function ColorMyPencils(color)
    -- vim.api.nvim_set_hl(0, "@constructor.tsx", { fg = "#88c0d0"}) -- lightblue
    -- vim.api.nvim_set_hl(0, "@tag.attribute.tsx", { fg = "#88c0d0"}) -- lightblue
 
-   vim.api.nvim_set_hl(0, '@keyword', { fg = '#5fb4b4' })               -- lightblue
-   vim.api.nvim_set_hl(0, '@punctuation.bracket', { fg = '#c695c6' })   -- lightblue
+   vim.api.nvim_set_hl(0, '@keyword', { fg = '#5fb4b4' }) -- lightblue
+   vim.api.nvim_set_hl(0, '@punctuation.bracket', { fg = '#c695c6' }) -- lightblue
    vim.api.nvim_set_hl(0, '@punctuation.delimiter', { fg = '#c695c6' }) -- lightblue
-   vim.api.nvim_set_hl(0, '@type', { fg = '#81a1c1' })                  -- blue
+   vim.api.nvim_set_hl(0, '@type', { fg = '#81a1c1' }) -- blue
    vim.api.nvim_set_hl(0, 'BlinkCmpDocBorder', { link = 'Conceal' })
 
    vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'NonText' })
